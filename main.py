@@ -18,24 +18,11 @@ class Main:
         self.seconds = 0
         self.file_parser = FileParser(data)
         FileParser.parse_input(self)
-        pass
 
-    def add_car(self, car):
-        self.cars.append(car)
-
-    def add_street(self, street):
-        self.streets.append(street)
-
-    def add_intersection(self, intersection):
-        self.intersection.append(intersection)
-
-    def set_seconds(self, secs: int):
-        self.seconds = secs
-
-    def HillClimbing_solution(self):
+    def hillclimbing_solution(self):
         hillClimbingAlg = HillClimbing
         x = 0
-        while(x < self.seconds):
+        while x < self.seconds:
             pass
 
 
