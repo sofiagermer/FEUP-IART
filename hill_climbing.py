@@ -1,6 +1,6 @@
-from Car import Car
-from Intersection import Intersection
-from Street import Street
+from car import Car
+from intersection import Intersection
+from street import Street
 
 
 class HillClimbing:

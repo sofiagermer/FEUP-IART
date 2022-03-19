@@ -1,12 +1,11 @@
 import unittest
 import os
 
-from Car import Car
-from Intersection import Intersection
-from Street import Street
-from Hill_climbing import HillClimbing
-from File_Parser import FileParser
-
+from car import Car
+from intersection import Intersection
+from street import Street
+from hill_climbing import HillClimbing
+import file_parsing
 
 class Main:
 
@@ -18,8 +17,6 @@ class Main:
         self.seconds = 0
         self.pointsPerCar = 0
         self.points = 0
-        self.file_parser = FileParser(data)
-        FileParser.parse_input(self)
 
     def hillclimbing_solution(self):
         hillClimbingAlg = HillClimbing
