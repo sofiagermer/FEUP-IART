@@ -33,6 +33,10 @@ class Main:
         self.seconds = secs
 
     def HillClimbing_solution(self):
-        pass
+        hillClimbingAlg = HillClimbing
+        x = 0
+        while(x < self.seconds):
+            pass
+
 
 
