@@ -16,6 +16,8 @@ class Main:
         self.intersection = []
         self.streets = []
         self.seconds = 0
+        self.pointsPerCar = 0
+        self.points = 0
         self.file_parser = FileParser(data)
         FileParser.parse_input(self)
 
