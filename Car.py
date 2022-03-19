@@ -26,7 +26,8 @@ class Car:
                 self.current_street_index += 1
                 self.streets[self.current_street_index].queue.append(self)
                 self.time_to_intersection = self.streets[self.current_street_index].length
-                return False
+
         elif self.time_to_intersection != 0:
             self.time_to_intersection -= 1
-            return False
+
+        return False
