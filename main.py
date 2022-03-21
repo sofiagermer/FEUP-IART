@@ -11,8 +11,7 @@ import file_parsing
 class Simulation:
 
     def __init__(self, data: str):
-        self.duration, self.points_per_car, self.intersections, self.streets, self.cars = file_parsing.parse(
-            "./data/a.txt")
+        self.duration, self.points_per_car, self.intersections, self.streets, self.cars = file_parsing.parse(data)
         self.points = 0
 
     def hillclimbing_solution(self):
@@ -33,5 +32,5 @@ class Simulation:
 
 
 if __name__ == '__main__':
-    simulation = Simulation()
+    simulation = Simulation("data/b.txt")
     simulation.execute("hill_climbing")
