@@ -21,7 +21,10 @@ class Simulation:
             for car in self.cars:
                 if car.move():
                     self.points += 1000
-
+            
+            for intersection in self.intersections:
+                intersection.update_semaphores()
+                
     def execute(self, algorithm):
         algorithm.execute()
         _run()

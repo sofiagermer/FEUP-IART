@@ -13,4 +13,8 @@ class Intersection:
 
     def add_outgoing(self, street):
         self.outgoing[street.name] = street
+    
+    def update_semaphores(self):
+        #TO-DO
+        pass
         
