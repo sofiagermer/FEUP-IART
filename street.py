@@ -4,6 +4,8 @@ from collections import deque
 class Street:
     def __init__(self, name, length, start_intersection, end_intersection):
         """
+        Street data class
+        -------------
         :param name: name of the street
         :param length: length of the street
         :param start_intersection: id of the start_intersection
@@ -14,3 +16,4 @@ class Street:
         self.start_intersection = start_intersection
         self.end_intersection = end_intersection
         self.queue = deque([])
+        self.light_duration = 0 #determined by the optimization algorithm
