@@ -13,3 +13,4 @@ class Intersection:
 
     def add_outgoing(self, street):
         self.outgoing[street.name] = street
+        
