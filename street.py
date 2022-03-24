@@ -17,3 +17,4 @@ class Street:
         self.end_intersection = end_intersection
         self.queue = deque([])
         self.light_duration = 0 #determined by the optimization algorithm
+        self.green_light = False
