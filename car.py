@@ -16,7 +16,7 @@ class Car:
         :return: True if car has reached its destination, False otherwise
         """
 
-        if not self.streets[self.current_street_index].green_light:
+        if not self.streets[self.current_street_index].green_light: #errado pq os carros podem andar no meio da rua quanod está vermelho
             return False
 
         on_front = self.streets[self.current_street_index].queue[0] == self
