@@ -19,8 +19,10 @@ class Intersection:
     def update_semaphores(self):
         self.counter += 1
         if self.counter == self.green_street.light_duration:
+            self.green_street.green_light = False
             self.green_street_index = (self.green_street_index + 1) % len(self.incoming)
             self.green_street = self.incoming[self.green_street_index]
+            self.green_street = True
             self.counter = 0
 
 
