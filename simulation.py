@@ -1,12 +1,6 @@
-import unittest
-import os
-
 from car import Car
 from intersection import Intersection
 from street import Street
-from hill_climbing import HillClimbing
-from simulated_annealing import SimulatedAnnealing
-from algorithm_interface import AlgorithmInterface
 import file_parsing
 
 
@@ -25,15 +19,8 @@ class Simulation:
             for intersection in self.intersections:
                 intersection.update_semaphores()
 
-    def execute(self, algorithm):
-        algorithm.execute(self)
-        self.run()
-        print("Simulation finished: " + self.points + " points")
+        point_obtained = self.points
         self.points = 0
+        print("Simulation finished: " + point_obtained + " points")
+        return point_obtained
 
-
-if __name__ == '__main__':
-    simulation = Simulation("data/b.txt")
-
-    hillClimbing = HillClimbing()
-    simulation.execute(hillClimbing)
