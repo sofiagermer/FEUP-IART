@@ -1,15 +1,3 @@
-import unittest
-import os
-
-from car import Car
-from intersection import Intersection
-from street import Street
-from hill_climbing import HillClimbing
-from simulated_annealing import SimulatedAnnealing
-from algorithm_interface import AlgorithmInterface
-import file_parsing
-
-
 class Simulation:
 
     def __init__(self, data: str):
@@ -30,10 +18,3 @@ class Simulation:
         self.run()
         print("Simulation finished: " + self.points + " points")
         self.points = 0
-
-
-if __name__ == '__main__':
-    simulation = Simulation("data/b.txt")
-
-    hillClimbing = HillClimbing()
-    simulation.execute(hillClimbing)
