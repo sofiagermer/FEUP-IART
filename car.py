@@ -16,12 +16,14 @@ class Car:
         :return: True if car has reached its destination, False otherwise
         """
 
-        if not self.streets[self.current_street_index].green_light: #errado pq os carros podem andar no meio da rua quanod está vermelho
+        # if the light is red and the car is already in the end of the street, the car doesn't move
+        if not self.streets[self.current_street_index].green_light and self.time_to_intersection == 0:
             return False
 
         on_front = self.streets[self.current_street_index].queue[0] == self
 
-        if self.time_to_intersection == 0 and on_front:
+        # if the car is on the closest to the intersection, he goes to his next street
+        if on_front:
             self.streets[self.current_street_index].queue.popleft()
             if self.current_street_index == len(self.streets)-1:
                 return True
@@ -30,6 +32,7 @@ class Car:
                 self.streets[self.current_street_index].queue.append(self)
                 self.time_to_intersection = self.streets[self.current_street_index].length
 
+        # if the car is in the middle of the street, he advances
         elif self.time_to_intersection != 0:
             self.time_to_intersection -= 1
 
