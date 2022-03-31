@@ -1,3 +1,9 @@
+from car import Car
+from intersection import Intersection
+from street import Street
+import file_parsing
+
+
 class Simulation:
 
     def __init__(self, data: str):
@@ -13,8 +19,8 @@ class Simulation:
             for intersection in self.intersections:
                 intersection.update_semaphores()
 
-    def execute(self, algorithm):
-        algorithm.execute(self)
-        self.run()
-        print("Simulation finished: " + self.points + " points")
+        point_obtained = self.points
         self.points = 0
+        print("Simulation finished: " + point_obtained + " points")
+        return point_obtained
+

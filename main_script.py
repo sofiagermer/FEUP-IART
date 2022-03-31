@@ -11,6 +11,17 @@ from simulation import Simulation
 import file_parsing
 
 
+class Program:
+    """
+    Class that runs the program
+    """
+    def __init__(self):
+        pass
+
+    def run(self):
+        pass
+
+
 if __name__ == '__main__':
     simulation = Simulation("data/b.txt")
 
