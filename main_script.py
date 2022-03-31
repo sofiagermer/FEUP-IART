@@ -13,7 +13,7 @@ import file_parsing
 
 class Program:
     """
-    Class that runs the program
+    Class holds the main logic and menus of the program
     """
     def __init__(self):
         pass
@@ -25,5 +25,3 @@ class Program:
 if __name__ == '__main__':
     simulation = Simulation("data/b.txt")
 
-    hillClimbing = HillClimbing()
-    simulation.execute(hillClimbing)
