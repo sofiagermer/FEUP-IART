@@ -2,7 +2,7 @@ from car import Car
 from intersection import Intersection
 from street import Street
 
-
+#PARSE INPUT
 def parse(file_path):
     with open(file_path) as f:
         lines = f.read().splitlines()
@@ -50,6 +50,40 @@ def __parse_cars(lines, streets):
 
     for line in lines:
         vals = line.split()
-        cars.append(Car([streets[name] for name in vals[1:]]))
+        car = Car([streets[name] for name in vals[1:]])
+        car.time_to_intersection = car.streets[0].length
+        cars.append(car)
 
     return cars
+
+
+#PARSE OUPUT
+def parse_output(file_path,intersections, streets):
+    with open(file_path) as f:
+        lines = f.read().splitlines()
+    
+    if lines == None:
+        raise Exception('error: Could not read file')
+
+    num_intersections = int(lines[0])
+    
+    current_line = 1
+    for _ in range(0,num_intersections):
+        curr_intersection = int(lines[current_line])
+        current_line += 1
+        num_streets = int(lines[current_line])
+        current_line += 1
+        for i in range(0, num_streets):
+            params = lines[current_line].split()
+            current_line += 1
+            street = params[0]
+            time_semaphore = int(params[1])
+            streets[street].light_duration = time_semaphore
+            intersections[curr_intersection].green_streets.append(streets[street])
+
+            if(i == 0) : 
+                streets[street].green_light = True
+            # if (i == 0) :
+            #     intersections[curr_intersection].green_street_index = intersections[curr_intersection].incoming.index(streets[street])
+            #     print(intersections[curr_intersection].green_street_index)
+    return 
