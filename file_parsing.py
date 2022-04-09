@@ -51,8 +51,12 @@ def __parse_cars(lines, streets):
     for line in lines:
         vals = line.split()
         car = Car([streets[name] for name in vals[1:]])
-        car.time_to_intersection = car.streets[0].length
+        car.time_to_intersection = 0 #each car starts at the end of its initial street
         cars.append(car)
+
+    #Add Cars to their first street queue
+    for car in cars:
+        car.streets[0].car_list.append(car)
 
     return cars
 
@@ -79,11 +83,8 @@ def parse_output(file_path,intersections, streets):
             street = params[0]
             time_semaphore = int(params[1])
             streets[street].light_duration = time_semaphore
-            intersections[curr_intersection].green_streets.append(streets[street])
+            intersections[curr_intersection].green_streets.append(street)
 
             if(i == 0) : 
                 streets[street].green_light = True
-            # if (i == 0) :
-            #     intersections[curr_intersection].green_street_index = intersections[curr_intersection].incoming.index(streets[street])
-            #     print(intersections[curr_intersection].green_street_index)
     return 

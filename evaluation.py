@@ -13,29 +13,27 @@ class Evaluation:
 
     def evaluate(self, data:str):
         file_parsing.parse_output(data, self.intersections, self.streets)
-
-        for _ in range(self.duration):
-            print('=================== 1 SEGUNDO PASSOU ========================')
-            for street in self.streets:
-                if self.streets[street].green_light:
-                    print(self.streets[street].name , " -> verde")
-                else:
-                    print(self.streets[street].name , " -> vermelho")
+        car_counter = 0
+        first_car = 0 
+        for i in range(self.duration):
+            #Update Each Car Position's after 1 second
             for car in self.cars:
-                print(' ----------------- CARRO ----------------------------- ')
-                #one point for each second after the car finished the path.
+                #One point for each second after the car finished the path.
                 if car.reached_end_path():
                     self.points += 1
                 
-                #moving the car foward
+                #Moving the car foward
                 else:
                     #when function move returns true -> car has just reached the end of its path
                     if(car.move(self.streets)):
                         self.points += self.points_per_car
-                print(' ')
-                
+                        car_counter += 1
+
+            #Update Each Semaphore State  after 1 second
             for intersection in self.intersections:
                 intersection.update_semaphores(self.streets)
 
+
+        # print("cars that arrived on time: ", car_counter)
         print("points: ", self.points)
         return self.points

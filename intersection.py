@@ -27,21 +27,17 @@ class Intersection:
 
         #intersection has more that one semaphore which light can turn green
         self.counter += 1
-        print("self counter : ", self.counter)
-        print("self.green_streets[self.green_street_index]" , self.green_streets[self.green_street_index].light_duration)
 
-        if self.counter == self.green_streets[self.green_street_index].light_duration:
-            self.counter = 0
-            print("same values")
-            streets[self.green_streets[self.green_street_index].name].green_light = False
+        #time of currrent green semaphore has ended
+        if self.counter == streets[self.green_streets[self.green_street_index]].light_duration:
+            self.counter = 0 
+
+            streets[self.green_streets[self.green_street_index]].green_light = False
             self.green_street_index += 1
-            if(self.green_street_index == len(self.green_streets)):
-                self.green_streets_index = 0
-            #erro aqui
-            print("self.green_streets[self.green_street_index].name: ", self.green_streets[self.green_street_index].name)
-            streets[self.green_streets[self.green_street_index].name].green_light = True
-        
-            print("")
+
+            self.green_street_index = self.green_street_index % len(self.green_streets)
+                
+            streets[self.green_streets[self.green_street_index]].green_light = True
         
 
 

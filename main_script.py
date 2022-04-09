@@ -21,11 +21,6 @@ class Program:
     def run(self):
         pass
 
-
-# if __name__ == '__main__':
-# simulation = Simulation("data/input/a.txt")
-# simulation.evaluate("data/output/a.txt")
-
 evaluation = Evaluation("data/input/a.txt")
 evaluation.evaluate("data/output/a.txt")
 
