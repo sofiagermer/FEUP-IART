@@ -21,11 +21,7 @@ class Intersection:
     def update_semaphores(self, streets):
         if self.new_car_in_intersection is True:
             _car = self.car_in_intersection
-
-            _car.streets[_car.current_street_index].car_list.popleft()
-            _car.current_street_index += 1
-            _car.streets[_car.current_street_index].car_list.append(_car)
-            _car.time_to_intersection = _car.streets[_car.current_street_index].length - 1
+            _car.streets[_car.current_street_index - 1].car_list.popleft()
             self.new_car_in_intersection = False
 
         #intersection doesn't has streets which can be green
