@@ -13,7 +13,10 @@ class Simulation:
 
     def run(self):
         car_counter = 0
-        for _ in range(self.duration):
+        first = False
+        for i in range(self.duration):
+
+
             # Update Each Car Position's after 1 second
             for car in self.cars:
 
@@ -29,10 +32,10 @@ class Simulation:
             for intersection in self.intersections:
                 intersection.update_semaphores(self.streets)
 
-        # print("cars that arrived on time: ", car_counter)
         for car in self.cars:
             car.finished_path = False
         print("points: ", self.points)
+        print("cars that arrived on time: ", car_counter)
         return self.points
 
     def evaluate_solution(self, data: str):
