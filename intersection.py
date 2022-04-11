@@ -6,6 +6,7 @@ class Intersection:
         self.id = id
         self.incoming = []
         self.outgoing = []
+        self.car_in_intersection = None
         self.green_streets = []
         self.green_street_index = 0
         self.counter = 0
@@ -17,6 +18,15 @@ class Intersection:
         self.outgoing.append(street)
     
     def update_semaphores(self, streets):
+        if self.car_in_intersection is not None:
+            _car = self.car_in_intersection
+
+            _car.streets[_car.current_street_index].car_list.popleft()
+            _car.current_street_index += 1
+            _car.streets[_car.current_street_index].car_list.append(_car)
+            _car.time_to_intersection = _car.streets[_car.current_street_index].length - 1
+            self.car_in_intersection = None
+
         #intersection doesn't has streets which can be green
         if len(self.green_streets) == 0:
             return
@@ -38,7 +48,4 @@ class Intersection:
             self.green_street_index = self.green_street_index % len(self.green_streets)
                 
             streets[self.green_streets[self.green_street_index]].green_light = True
-        
-
-
         

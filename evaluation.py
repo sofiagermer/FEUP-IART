@@ -11,7 +11,7 @@ class Evaluation:
         self.duration, self.points_per_car, self.intersections, self.streets, self.cars = file_parsing.parse(data)
         self.points = 0
 
-    def evaluate(self, data:str):
+    def evaluate(self, data: str):
         file_parsing.parse_output(data, self.intersections, self.streets)
         car_counter = 0
         first_car = 0 

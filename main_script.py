@@ -10,6 +10,8 @@ from algorithm_interface import AlgorithmInterface
 from simulation import Simulation
 from evaluation import Evaluation
 import file_parsing
+from collections import deque
+
 
 class Program:
     """
@@ -21,6 +23,7 @@ class Program:
     def run(self):
         pass
 
-evaluation = Evaluation("data/input/a.txt")
-evaluation.evaluate("data/output/a.txt")
+if __name__ == "__main__":
+    simulation = Simulation("data/input/a.txt")
+    simulation.evaluate_solution("data/output/a.txt")
 

@@ -32,16 +32,16 @@ def __parse_streets(lines, intersections):
     for line in lines:
         vals = line.split()
 
-        start_intersection = int(vals[0])
-        end_intersection = int(vals[1])
+        start_intersection = intersections[int(vals[0])]
+        end_intersection = intersections[int(vals[1])]
         name = vals[2]
         length = int(vals[3])
 
         street = Street(name, length, start_intersection, end_intersection)
         streets[name] = street
 
-        intersections[street.start_intersection].add_outgoing(street)
-        intersections[street.end_intersection].add_incoming(street)
+        intersections[street.start_intersection.id].add_outgoing(street)
+        intersections[street.end_intersection.id].add_incoming(street)
 
     return streets
 
@@ -62,7 +62,7 @@ def __parse_cars(lines, streets):
 
 
 #PARSE OUPUT
-def parse_output(file_path,intersections, streets):
+def parse_output(file_path, intersections, streets):
     with open(file_path) as f:
         lines = f.read().splitlines()
     
@@ -87,4 +87,4 @@ def parse_output(file_path,intersections, streets):
 
             if(i == 0) : 
                 streets[street].green_light = True
-    return 
+    return

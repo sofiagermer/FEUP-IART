@@ -12,19 +12,29 @@ class Simulation:
         self.points = 0
 
     def run(self):
-        pass
-        #solution = HillClimbing(self.cars,self.intersections, self.streets)
-        #print("yupi")
-        # for _ in range(self.duration):
-        #     for car in self.cars:
-        #         if car.move():
-        #             self.points += 1000
+        car_counter = 0
+        for _ in range(self.duration):
+            # Update Each Car Position's after 1 second
+            for car in self.cars:
 
-        #     for intersection in self.intersections:
-        #         intersection.update_semaphores()
+                if car.finished_path is True:
+                    self.points += 1
 
-        # point_obtained = self.points
-        # self.points = 0
-        # print("Simulation finished: " + point_obtained + " points")
-        # return point_obtained
+                if car.move():
+                    car.finished_path = True
+                    self.points += self.points_per_car
+                    car_counter += 1
 
+            # Update Each Semaphore State  after 1 second
+            for intersection in self.intersections:
+                intersection.update_semaphores(self.streets)
+
+        # print("cars that arrived on time: ", car_counter)
+        for car in self.cars:
+            car.finished_path = False
+        print("points: ", self.points)
+        return self.points
+
+    def evaluate_solution(self, data: str):
+        file_parsing.parse_output(data, self.intersections, self.streets)
+        return self.run()
