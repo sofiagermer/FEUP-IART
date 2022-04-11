@@ -19,6 +19,7 @@ class Simulation:
             # Update Each Car Position's after 1 second
             for car in self.cars:
 
+                #if the car has already finished its path, add 1 point
                 if car.finished_path is True:
                     self.points += 1
 

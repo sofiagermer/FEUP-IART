@@ -12,42 +12,48 @@ class Car:
         self.finished_path = False
 
 
-    def move_red_light(self):
-        #Car is in the Middle of the Street:
-        if self.time_to_intersection != 0:
-            self.time_to_intersection -= 1
-
     def move_green_light(self):
-
-        #Car is at Intersection
         if self.time_to_intersection == 0:
-
             on_front = self.streets[self.current_street_index].car_list[0]
-            #Car is on front of queue, so it moves
             car_inside_intersection = self.streets[self.current_street_index].end_intersection.new_car_in_intersection
+
+            #if the car is on the front of the queue AND a car hasn't traversed the intersection yet
+            # (only 1 car can traversed a intersection in each second)
             if on_front == self and car_inside_intersection is False:
 
-                self.streets[self.current_street_index].end_intersection.car_in_intersection = self
                 self.streets[self.current_street_index].end_intersection.new_car_in_intersection = True
-
+                self.streets[self.current_street_index].car_list.popleft()
                 self.current_street_index += 1
                 self.streets[self.current_street_index].car_list.append(self)
                 self.time_to_intersection = self.streets[self.current_street_index].length
 
     
     def move(self):
-        # Attribute all streets is needed because traffic light signaling is defined in output
+
         if self.finished_path is True:
             return False
 
+
+        #regardless of the light, if a car is in the middle of a street, it moves
         if self.time_to_intersection != 0:
             self.time_to_intersection -= 1
             if self.reached_end_path():
                 return True
 
-        if self.streets[self.current_street_index].green_light:
-            self.move_green_light()
+            #if the light is green, it transitions to the next street
+            if self.streets[self.current_street_index].green_light:
+                self.move_green_light()
 
+        else:
+            #if the light is green, it transitions to the next street
+            if self.streets[self.current_street_index].green_light:
+                self.move_green_light()
+
+                #if the car transitions to the next street, he can still move since traversing a intersection is instantaneous
+                if self.time_to_intersection != 0:
+                    self.time_to_intersection -= 1
+
+        #checks if the car has ended its path
         return self.reached_end_path()
 
 

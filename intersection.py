@@ -19,10 +19,9 @@ class Intersection:
         self.outgoing.append(street)
     
     def update_semaphores(self, streets):
-        if self.new_car_in_intersection is True:
-            _car = self.car_in_intersection
-            _car.streets[_car.current_street_index - 1].car_list.popleft()
-            self.new_car_in_intersection = False
+
+        #resets value
+        self.new_car_in_intersection = False
 
         #intersection doesn't has streets which can be green
         if len(self.green_streets) == 0:
