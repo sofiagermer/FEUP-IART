@@ -23,9 +23,6 @@ class Car:
 
     def move_green_light(self):
 
-        if self.reached_end_path():
-            return True
-
         #Car is in the Middle of the Street and Moves
         if self.time_to_intersection != 0:
             self.time_to_intersection -= 1
@@ -33,11 +30,12 @@ class Car:
            
         #Car is at Intersection
         else:
-            #Queue of Cars is empty
+
             on_front = self.streets[self.current_street_index].car_list[0]
             #Car is on front of queue, so it moves
             if on_front == self:
                 self.streets[self.current_street_index].end_intersection.car_in_intersection = self
+                self.streets[self.current_street_index].end_intersection.new_car_in_intersection = True
 
             return False
     
@@ -45,6 +43,9 @@ class Car:
         # Attribute all streets is needed because traffic light signaling is defined in output
         if self.finished_path is True:
             return False
+
+        if self.reached_end_path():
+            return True
 
         #Light is Red
         if not self.streets[self.current_street_index].green_light:
