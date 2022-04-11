@@ -17,9 +17,7 @@ class Car:
         if self.time_to_intersection != 0:
             self.time_to_intersection -= 1
 
-        #Car joins waiting line to leave Intersection
-        if self.time_to_intersection == 0 and (not self.last_street()):
-            self.streets[self.current_street_index].car_list.append(self)
+
 
         return self.reached_end_path()
 
