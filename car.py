@@ -19,12 +19,8 @@ class Car:
 
     def move_green_light(self):
 
-        #Car is in the Middle of the Street and Moves
-        if self.time_to_intersection != 0:
-            self.time_to_intersection -= 1
-           
         #Car is at Intersection
-        else:
+        if self.time_to_intersection == 0:
 
             on_front = self.streets[self.current_street_index].car_list[0]
             #Car is on front of queue, so it moves
@@ -36,7 +32,7 @@ class Car:
 
                 self.current_street_index += 1
                 self.streets[self.current_street_index].car_list.append(self)
-                self.time_to_intersection = self.streets[self.current_street_index].length - 1
+                self.time_to_intersection = self.streets[self.current_street_index].length
 
     
     def move(self):
@@ -44,13 +40,12 @@ class Car:
         if self.finished_path is True:
             return False
 
+        if self.time_to_intersection != 0:
+            self.time_to_intersection -= 1
+            if self.reached_end_path():
+                return True
 
-        #Light is Red
-        if not self.streets[self.current_street_index].green_light:
-            self.move_red_light()
-
-        #Light is Green
-        else:
+        if self.streets[self.current_street_index].green_light:
             self.move_green_light()
 
         return self.reached_end_path()

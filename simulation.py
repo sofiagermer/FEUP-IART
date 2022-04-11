@@ -16,7 +16,6 @@ class Simulation:
         first = False
         for i in range(self.duration):
 
-
             # Update Each Car Position's after 1 second
             for car in self.cars:
 
@@ -24,6 +23,9 @@ class Simulation:
                     self.points += 1
 
                 if car.move():
+                    if first is False:
+                        print("First car: ", i)
+                        first = True
                     car.finished_path = True
                     self.points += self.points_per_car
                     car_counter += 1
