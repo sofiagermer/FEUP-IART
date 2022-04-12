@@ -6,8 +6,10 @@ class Intersection:
         self.id = id
         self.incoming = []
         self.outgoing = []
-        self.green_street_index = -1 #defined by the algorithm
-        self.green_street = None #defined by the algorithm
+        self.car_in_intersection = None
+        self.new_car_in_intersection = False
+        self.green_streets = []
+        self.green_street_index = 0
         self.counter = 0
 
     def add_incoming(self, street):
@@ -16,14 +18,30 @@ class Intersection:
     def add_outgoing(self, street):
         self.outgoing.append(street)
     
-    def update_semaphores(self):
+    def update_semaphores(self, streets):
+
+        #resets value
+        self.new_car_in_intersection = False
+
+        #intersection doesn't has streets which can be green
+        if len(self.green_streets) == 0:
+            return
+            
+        #intersection only has got one street that is always green
+        if len(self.green_streets) == 1:
+            return
+
+        #intersection has more that one semaphore which light can turn green
         self.counter += 1
-        if self.counter == self.green_street.light_duration:
-            self.green_street.green_light = False
-            self.green_street_index = (self.green_street_index + 1) % len(self.incoming)
-            self.green_street = self.incoming[self.green_street_index]
-            self.green_street = True
-            self.counter = 0
 
+        #time of currrent green semaphore has ended
+        if self.counter == streets[self.green_streets[self.green_street_index]].light_duration:
+            self.counter = 0 
 
+            streets[self.green_streets[self.green_street_index]].green_light = False
+            self.green_street_index += 1
+
+            self.green_street_index = self.green_street_index % len(self.green_streets)
+                
+            streets[self.green_streets[self.green_street_index]].green_light = True
         

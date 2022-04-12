@@ -8,7 +8,9 @@ from hill_climbing import HillClimbing
 from simulated_annealing import SimulatedAnnealing
 from algorithm_interface import AlgorithmInterface
 from simulation import Simulation
+from evaluation import Evaluation
 import file_parsing
+from collections import deque
 
 
 class Program:
@@ -21,7 +23,7 @@ class Program:
     def run(self):
         pass
 
-
-if __name__ == '__main__':
-    simulation = Simulation("data/b.txt")
+if __name__ == "__main__":
+    simulation = Simulation("data/input/c.txt")
+    simulation.evaluate_solution("data/output/c.txt")
 
