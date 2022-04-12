@@ -1,17 +1,14 @@
 import numpy
-import simulation
+from copy import deepcopy
 
 class Solution:
     def __init__(self, simulation):
-        self.solution = []
+        st = []
         for intersection in simulation.intersections:
-            intersection_streets = []
-            for street in intersection.incoming:
-                intersection_streets.append([street.name, street.light_duration])
+            intersection_streets = numpy.array([[street.name, 0] for street in intersection.incoming])
+            st.append(intersection_streets)
 
-            self.solution.append(intersection_streets)
-
-        self.solution = numpy.array(self.solution, dtype=object)
+        self.state = numpy.array(st, dtype=object)
 
     def export_solution(self, simulation):
         """

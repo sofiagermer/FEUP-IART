@@ -11,6 +11,10 @@ class Car:
         self.time_to_intersection = 0
         self.finished_path = False
 
+    def reset_state(self):
+        self.current_street_index = 0
+        self.time_to_intersection = 0
+        self.finished_path = False
 
     def move_green_light(self):
         if self.time_to_intersection == 0:

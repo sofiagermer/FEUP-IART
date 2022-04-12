@@ -3,6 +3,7 @@ import os
 
 from car import Car
 from intersection import Intersection
+from solution import Solution
 from street import Street
 from hill_climbing import HillClimbing
 from simulated_annealing import SimulatedAnnealing
@@ -24,6 +25,8 @@ class Program:
         pass
 
 if __name__ == "__main__":
-    simulation = Simulation("data/input/c.txt")
-    simulation.evaluate_solution("data/output/c.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
+    simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
+    solution = Solution(simulation)
+    simulation.evaluate_solution("data/output/a.txt", solution)
 

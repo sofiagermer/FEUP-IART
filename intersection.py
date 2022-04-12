@@ -12,6 +12,13 @@ class Intersection:
         self.green_street_index = 0
         self.counter = 0
 
+    def reset_state(self):
+        self.car_in_intersection = None
+        self.new_car_in_intersection = False
+        self.green_streets = []
+        self.green_street_index = 0
+        self.counter = 0
+
     def add_incoming(self, street):
         self.incoming.append(street)
 
@@ -35,13 +42,13 @@ class Intersection:
         self.counter += 1
 
         #time of currrent green semaphore has ended
-        if self.counter == streets[self.green_streets[self.green_street_index]].light_duration:
+        if self.counter == self.green_streets[self.green_street_index].light_duration:
             self.counter = 0 
 
-            streets[self.green_streets[self.green_street_index]].green_light = False
+            self.green_streets[self.green_street_index].green_light = False
             self.green_street_index += 1
 
             self.green_street_index = self.green_street_index % len(self.green_streets)
                 
-            streets[self.green_streets[self.green_street_index]].green_light = True
+            self.green_streets[self.green_street_index].green_light = True
         

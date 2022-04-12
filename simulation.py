@@ -8,13 +8,42 @@ import file_parsing
 
 
 class Simulation:
-    def __init__(self, data: str):
-        self.duration, self.points_per_car, self.intersections, self.streets, self.cars = file_parsing.parse(data)
+    def __init__(self, duration, points_per_car, intersections, streets, cars):
+        self.duration = duration
+        self.points_per_car = points_per_car
+        self.intersections = intersections
+        self.streets = streets
+        self.cars = cars
         self.points = 0
 
-    def run(self):
+    def reset_state(self):
+        for intersection in self.intersections:
+            intersection.reset_state()
+
+        for street in list(self.streets.values()):
+            street.reset_state()
+        
+        for car in self.cars:
+            car.reset_state()
+
+    def import_solution(self, solution):
+        for intersection_id in range(len(solution.state)):
+            intersection = self.intersections[intersection_id]
+            for [name, green_duration] in solution.state[intersection_id]:
+                street = self.streets[name]
+                street.light_duration = green_duration
+
+                if green_duration != 0:
+                    intersection.green_streets.append(street)
+
+    def run(self, solution):
         car_counter = 0
         first = False
+
+        
+        #self.reset_state()
+#        self.import_solution(solution)
+
         for i in range(self.duration):
 
             # Update Each Car Position's after 1 second
@@ -42,7 +71,7 @@ class Simulation:
         print("cars that arrived on time: ", car_counter)
         return Solution(self), self.points
 
-    def evaluate_solution(self, data: str):
-        file_parsing.parse_output(data, self.intersections, self.streets)
-        _, points = self.run()
+    def evaluate_solution(self, data: str, solution):
+        #file_parsing.parse_output(data, self.intersections, self.streets)
+        _, points = self.run(solution)
         return points

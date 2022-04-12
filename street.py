@@ -18,3 +18,8 @@ class Street:
         self.car_list = deque([])
         self.light_duration = 0 #determined by the optimization algorithm
         self.green_light = False
+
+    def reset_state(self):
+        self.car_list = deque([])
+        self.light_duration = 0
+        self.green_light = False
