@@ -24,6 +24,6 @@ class Program:
         pass
 
 if __name__ == "__main__":
-    simulation = Simulation("data/input/d.txt")
-    simulation.evaluate_solution("data/output/d.txt")
+    simulation = Simulation("data/input/c.txt")
+    simulation.evaluate_solution("data/output/c.txt")
 

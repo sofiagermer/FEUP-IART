@@ -3,6 +3,7 @@ from hill_climbing import HillClimbing
 from car import Car
 from intersection import Intersection
 from street import Street
+from solution import Solution
 import file_parsing
 
 
@@ -39,8 +40,9 @@ class Simulation:
             car.finished_path = False
         print("points: ", self.points)
         print("cars that arrived on time: ", car_counter)
-        return self.points
+        return Solution(self), self.points
 
     def evaluate_solution(self, data: str):
         file_parsing.parse_output(data, self.intersections, self.streets)
-        return self.run()
+        _, points = self.run()
+        return points
