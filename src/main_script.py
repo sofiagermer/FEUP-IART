@@ -10,7 +10,7 @@ from simulated_annealing import SimulatedAnnealing
 from algorithm_interface import AlgorithmInterface
 from simulation import Simulation
 import file_parsing
-from collections import deque
+
 from algorithm_utils import gen_neighbour_lightOrOrder_func
 
 

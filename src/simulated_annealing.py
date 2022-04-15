@@ -5,6 +5,7 @@ from algorithm_interface import AlgorithmInterface
 from simulation import Simulation
 from solution import Solution
 
+import matplotlib.pyplot as plt
 import math
 import random
 
@@ -21,6 +22,8 @@ class SimulatedAnnealing(AlgorithmInterface):
 
     def execute(self, neighbour_func):
 
+        all_points = []
+
         self.best_solution.gen_random_solution(10)
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
@@ -35,6 +38,8 @@ class SimulatedAnnealing(AlgorithmInterface):
                     self.best_points = new_points
                     self.best_solution = new_solution
 
+                    all_points.append(new_points)
+
                 else:
                     delta = self.best_points - new_points
                     p = math.exp(-delta/self.temperature)
@@ -42,8 +47,14 @@ class SimulatedAnnealing(AlgorithmInterface):
                         self.best_points = new_points
                         self.best_solution = new_solution
 
+                        all_points.append(new_points)
+
             self.temperature *= self.cooling
 
+
+        plt.plot(all_points, 'o-')
+        plt.ylabel('Best Points')
+        plt.show()
 
 
     def get_solution(self):
