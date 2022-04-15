@@ -75,7 +75,7 @@ class Simulation:
             car.finished_path = False
         print("points: ", self.points)
         print("cars that arrived on time: ", car_counter)
-        return Solution(self), self.points
+        return self.points
 
     def evaluate_solution(self, data: str, solution):
         #file_parsing.parse_output(data, self.intersections, self.streets)

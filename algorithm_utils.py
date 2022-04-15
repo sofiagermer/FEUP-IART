@@ -1,6 +1,7 @@
 from random import randint
 import numpy as np
 from solution import Solution
+import copy
 
 
 def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
@@ -11,7 +12,7 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
     max_light_variation -> amplitude of the traffic light duration variation
     """
     def ret_func(old_solution):
-        solution = Solution(state=np.copy(old_solution.state))
+        solution = Solution(state=copy.deepcopy(old_solution.state))
 
         intersection = randint(0, len(solution.state) - 1)
 
@@ -43,7 +44,8 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
 
             np.random.shuffle(solution.state[intersection])
 
-            while np.array_equal(old_solution.state[intersection], solution.state[intersection]) is True:
+            while np.array_equal(solution.state[intersection], old_solution.state[intersection]) is True:
+                print("again")
                 np.random.shuffle(solution.state[intersection])
 
         return solution
