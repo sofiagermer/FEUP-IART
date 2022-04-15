@@ -72,7 +72,7 @@ def parse_output(file_path, intersections, streets):
     num_intersections = int(lines[0])
     
     current_line = 1
-    for _ in range(0,num_intersections):
+    for _ in range(0, num_intersections):
         curr_intersection = int(lines[current_line])
         current_line += 1
         num_streets = int(lines[current_line])
