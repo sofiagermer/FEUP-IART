@@ -24,6 +24,9 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
 
             street = randint(0, len(solution.state[intersection])-1)
             increment = randint(1, max_light_variation)
+
+            print("Lights: ", intersection, street, increment)
+
             if randint(0, 1) == 0:
                 solution.state[intersection][street][1] += increment
 
@@ -35,10 +38,12 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
 
         else:
             #changes traffic light order
-            old_order = np.copy(solution.state[intersection])
+
+            print("Order: ", intersection)
+
             np.random.shuffle(solution.state[intersection])
 
-            while np.array_equal(old_order, solution.state[intersection]) is True:
+            while np.array_equal(old_solution.state[intersection], solution.state[intersection]) is True:
                 np.random.shuffle(solution.state[intersection])
 
         return solution
