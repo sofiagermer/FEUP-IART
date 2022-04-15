@@ -14,6 +14,7 @@ class Car:
     def reset_state(self):
         self.current_street_index = 0
         self.time_to_intersection = 0
+        self.streets[self.current_street_index].car_list.append(self)
         self.finished_path = False
 
     def move_green_light(self):

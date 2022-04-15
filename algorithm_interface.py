@@ -5,7 +5,7 @@ class AlgorithmInterface:
     def __init__(self, simulation):
         pass
 
-    def execute(self):
+    def execute(self, neighbour_func):
         """
         Executes one iteration of the algorithm
         """

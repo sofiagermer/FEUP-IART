@@ -34,15 +34,21 @@ class Simulation:
                 street.light_duration = green_duration
 
                 if green_duration != 0:
+                    if len(intersection.green_streets) == 0:
+                        street.green_light = True
                     intersection.green_streets.append(street)
 
-    def run(self, solution):
+
+    def run(self, solution=None):
+        if solution is not None:
+            self.reset_state()
+            self.import_solution(solution)
+
         car_counter = 0
+        self.points = 0
+
         first = False
 
-        
-        #self.reset_state()
-#        self.import_solution(solution)
 
         for i in range(self.duration):
 

@@ -8,7 +8,7 @@ class HillClimbing(AlgorithmInterface):
     def __init__(self, simulation):
         self.simulation = copy.deepcopy(simulation)
 
-    def execute(self):
+    def execute(self, neighbour_func):
         pass
 
     def get_solution(self):

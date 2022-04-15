@@ -12,7 +12,7 @@ from simulation import Simulation
 from evaluation import Evaluation
 import file_parsing
 from collections import deque
-
+from algorithm_utils import gen_neighbour_lightOrOrder_func
 
 class Program:
     """
@@ -25,8 +25,12 @@ class Program:
         pass
 
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/b.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
-    solution = Solution(simulation)
-    simulation.evaluate_solution("data/output/a.txt", solution)
+
+    simulated_annealing = SimulatedAnnealing(simulation)
+    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+
+    simulated_annealing.execute(neighbour_func)
+
 
