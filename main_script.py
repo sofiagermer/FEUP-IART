@@ -32,7 +32,9 @@ if __name__ == "__main__":
     simulated_annealing = SimulatedAnnealing(simulation)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
 
-    bestSol, bestPoints = simulated_annealing.execute(neighbour_func)
+    simulated_annealing.execute(neighbour_func)
+
+    bestSol, bestPoints = simulated_annealing.get_solution()
 
     print("Best points obtained: ", bestPoints)
 
