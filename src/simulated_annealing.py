@@ -6,7 +6,7 @@ from simulation import Simulation
 from solution import Solution
 
 import matplotlib.pyplot as plt
-import math
+from math import log, exp
 import random
 import time
 
@@ -17,9 +17,9 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = simulation.points_per_car * 5 #seria 3000 ou 300 na maioria dos casos
-        self.cooling = 0.7 #cooling coefficient
+        self.init_temperature = 100
         self.runs_per_temp = 30 #iterations per temperature
+        self.min_temperature = 0.001
 
     def execute(self, neighbour_func):
 
@@ -29,12 +29,18 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
 
-        self.temperature = self.init_temperature
 
-        while(self.temperature > self.init_temperature/1000):
+        counter = 0
+        while counter < 1000:
+            temperature = self.cooling(counter)
+            if (temperature < self.min_temperature):
+                print("Too cold :(, Stopped algorith")
+                break
             for _ in range(self.runs_per_temp):
+                counter += 1
                 new_solution = neighbour_func(self.best_solution)
                 new_points = self.simulation.run(solution=new_solution)
+
                 if new_points > self.best_points:
                     self.best_points = new_points
                     self.best_solution = new_solution
@@ -42,20 +48,17 @@ class SimulatedAnnealing(AlgorithmInterface):
                     all_points.append(new_points)
 
                 else:
-                    delta = self.best_points - new_points
-                    p = math.exp(-delta/self.temperature)
-                    if p > random.random():
+                    delta = new_points - self.best_points
+
+                    if exp(delta/temperature) > random.random():
                         self.best_points = new_points
                         self.best_solution = new_solution
 
                         all_points.append(new_points)
 
-            self.temperature *= self.cooling
 
+        return all_points
 
-        plt.plot(all_points, 'o-')
-        plt.ylabel('Best Points')
-        plt.show()
 
     def cooling(self, t):
         return self.quadratic_cooling(t)
@@ -74,4 +77,3 @@ class SimulatedAnnealing(AlgorithmInterface):
 
     def get_solution(self):
         return self.best_solution, self.best_points
-    

@@ -61,7 +61,7 @@ class Simulation:
 
                 if car.move():
                     if first is False:
-                        print("First car: ", i)
+                        #print("First car: ", i)
                         first = True
                     car.finished_path = True
                     self.points += self.points_per_car
