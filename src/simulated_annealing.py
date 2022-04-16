@@ -8,6 +8,7 @@ from solution import Solution
 import matplotlib.pyplot as plt
 import math
 import random
+import time
 
 class SimulatedAnnealing(AlgorithmInterface):
 
@@ -56,6 +57,20 @@ class SimulatedAnnealing(AlgorithmInterface):
         plt.ylabel('Best Points')
         plt.show()
 
+    def cooling(self, t):
+        return self.quadratic_cooling(t)
+
+    def exponential_cooling(self, t):
+        return self.init_temperature * 0.7 ** t
+
+    def log_cooling(self, t):
+        return self.init_temperature / (1 + log(1 + t))
+
+    def linear_cooling(self, t):
+        return self.init_temperature / (1 + t)
+
+    def quadratic_cooling(self, t):
+        return self.init_temperature / (1 + t ** 2)
 
     def get_solution(self):
         return self.best_solution, self.best_points

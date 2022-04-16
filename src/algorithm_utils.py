@@ -23,31 +23,44 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
         if light_odd >= r or impossible_shuffle is True:
             #changes traffic light duration
 
-            street = randint(0, len(solution.state[intersection])-1)
-            increment = randint(1, max_light_variation)
-
-            print("Lights: ", intersection, street, increment)
-
-            if randint(0, 1) == 0:
-                solution.state[intersection][street][1] += increment
-
-            elif solution.state[intersection][street][1] <= increment:
-                solution.state[intersection][street][1] = 0
-
-            else:
-                solution.state[intersection][street][1] -= increment
+            #print("Lights: ", intersection)
+            return change_semaphore_duration(solution, intersection, max_light_variation)
 
         else:
             #changes traffic light order
 
-            print("Order: ", intersection)
-
-            np.random.shuffle(solution.state[intersection])
-
-            while np.array_equal(solution.state[intersection], old_solution.state[intersection]) is True:
-                print("again")
-                np.random.shuffle(solution.state[intersection])
-
-        return solution
+            #print("Order: ", intersection)
+            return switch_semaphore_order(solution, intersection)
 
     return ret_func
+
+
+def change_semaphore_duration(solution, intersection, max_light_variation):
+    street = randint(0, len(solution.state[intersection]) - 1)
+    increment = randint(1, max_light_variation)
+
+    print("Lights: ", intersection, street, increment)
+
+    if randint(0, 1) == 0:
+        solution.state[intersection][street][1] += increment
+
+    elif solution.state[intersection][street][1] <= increment:
+        solution.state[intersection][street][1] = 0
+
+    else:
+        solution.state[intersection][street][1] -= increment
+
+    return solution
+
+def switch_semaphore_order(solution, intersection):
+    s1 = randint(0, len(solution.state[intersection]) - 1)
+    s2 = randint(0, len(solution.state[intersection]) - 1)
+    while s1 != s2:
+        s2 = randint(0, len(solution.state[intersection]) - 1)
+
+    print("Order: ", intersection, s1, s2)
+
+    solution.state[intersection][s1], solution.state[intersection][s2] = solution.state[intersection][s2], \
+                                                                         solution.state[intersection][s1]
+    return solution
+

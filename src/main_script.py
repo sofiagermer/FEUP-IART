@@ -30,7 +30,7 @@ if __name__ == "__main__":
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
     simulated_annealing = SimulatedAnnealing(simulation)
-    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+    neighbour_func = gen_neighbour_lightOrOrder_func(75, 15)
 
     simulated_annealing.execute(neighbour_func)
 
