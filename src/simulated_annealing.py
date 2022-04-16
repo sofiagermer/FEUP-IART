@@ -8,6 +8,7 @@ from solution import Solution
 import matplotlib.pyplot as plt
 import math
 import random
+import time
 
 class SimulatedAnnealing(AlgorithmInterface):
 
