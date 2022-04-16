@@ -30,8 +30,10 @@ class Program:
 
 if __name__ == "__main__":
     sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
+    file_parsing.parse_output("data/output/e.txt", intersections, streets)
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
-
+    print(simulation.run())
+"""
     simulated_annealing = SimulatedAnnealing(simulation)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 15)
 
@@ -45,7 +47,7 @@ if __name__ == "__main__":
     plt.plot(all_points, 'o-', markersize=3)
     plt.ylabel('Best Points')
     plt.show()
-
+"""
 
 
 

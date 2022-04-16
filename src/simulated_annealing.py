@@ -58,9 +58,7 @@ class SimulatedAnnealing(AlgorithmInterface):
 
 
         return all_points
-        plt.plot(all_points, 'o-', markersize=3)
-        plt.ylabel('Best Points')
-        plt.show()
+
 
     def cooling(self, t):
         return self.quadratic_cooling(t)
