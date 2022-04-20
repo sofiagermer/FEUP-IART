@@ -17,7 +17,7 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = 100
+        self.init_temperature = 100000
         self.runs_per_temp = 30 #iterations per temperature
         self.min_temperature = 0.001
 
@@ -61,7 +61,7 @@ class SimulatedAnnealing(AlgorithmInterface):
 
 
     def cooling(self, t):
-        return self.quadratic_cooling(t)
+        return self.exponential_cooling(t)
 
     def exponential_cooling(self, t):
         return self.init_temperature * 0.7 ** t
