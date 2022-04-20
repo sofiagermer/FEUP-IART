@@ -54,7 +54,7 @@ def change_semaphore_duration(solution, intersection, max_light_variation):
 def switch_semaphore_order(solution, intersection):
     s1 = randint(0, len(solution.state[intersection]) - 1)
     s2 = randint(0, len(solution.state[intersection]) - 1)
-    while s1 != s2:
+    while s1 == s2:
         s2 = randint(0, len(solution.state[intersection]) - 1)
 
     print("Order: ", intersection, s1, s2)
