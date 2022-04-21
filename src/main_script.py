@@ -26,16 +26,26 @@ class Program:
 
 
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
-    simulated_annealing = SimulatedAnnealing(simulation)
+    # simulated_annealing = SimulatedAnnealing(simulation)
+    # neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+
+    # simulated_annealing.execute(neighbour_func)
+
+    # bestSol, bestPoints = simulated_annealing.get_solution()
+
+    hill_climbing = HillClimbing(simulation)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
 
-    simulated_annealing.execute(neighbour_func)
+    hill_climbing.execute(neighbour_func)
 
-    bestSol, bestPoints = simulated_annealing.get_solution()
+    bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     print("Best points obtained: ", bestPoints)
+ 
+
+
 
 
