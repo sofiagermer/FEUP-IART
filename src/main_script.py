@@ -27,6 +27,11 @@ class Program:
     def run(self):
         pass
 
+    def mainmenu(self):
+        print("=======Traffic light optimization=======")
+        print("")
+
+
 
 if __name__ == "__main__":
     sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
@@ -53,6 +58,8 @@ if __name__ == "__main__":
     plt.plot(all_points, 'o-', markersize=3)
     plt.ylabel('Best Points')
     plt.show()
+
+
 
 
 

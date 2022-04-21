@@ -49,7 +49,7 @@ class Simulation:
         first = False
 
 
-        for i in range(self.duration):
+        for i in range(self.duration+1):
 
             # Update Each Car Position's after 1 second
             for car in self.cars:
