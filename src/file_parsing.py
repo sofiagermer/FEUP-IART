@@ -83,7 +83,7 @@ def parse_output(file_path, intersections, streets):
             street = params[0]
             time_semaphore = int(params[1])
             streets[street].light_duration = time_semaphore
-            intersections[curr_intersection].green_streets.append(street)
+            intersections[curr_intersection].green_streets.append(streets[street])
 
             if(i == 0) : 
                 streets[street].green_light = True

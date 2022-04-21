@@ -2,7 +2,7 @@
 
 ## Simulated Annealing
 
-### 1.
+### 1. (old data parameters)
 ![](images/Figure_1.png)
 
 - **Light change odd:** 50
