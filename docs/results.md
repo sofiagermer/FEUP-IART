@@ -166,7 +166,7 @@
 
 #### Exponential cooling (0.9 instead of 0.7)
 
-![](images/sim-annealing/run5expcooling.png) (missing) 
+![](images/sim-annealing/run5expcooling.png) 
 ![](images/sim-annealing/run5expcoolingresults.png)
 
 
