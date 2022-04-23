@@ -2,7 +2,6 @@ from random import randint
 from solution import Solution
 import copy
 
-
 def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
     """
     Generates random neighbour solution function that returns a neighbour solution
