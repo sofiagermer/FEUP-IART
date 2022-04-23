@@ -40,6 +40,12 @@ if __name__ == "__main__":
 
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
+    sol = Solution(simulation)
+    sol.gen_greedy_solution()
+
+    points = simulation.run(sol)
+    print(f'Points: {points}')
+
     # HILL CLIMBING SIMULATION
     #hill_climbing = HillClimbing(simulation)
     #neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
@@ -47,22 +53,23 @@ if __name__ == "__main__":
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
+    """
     simulated_annealing = SimulatedAnnealing(simulation)
     rand_sol = Solution(simulation)
     rand_sol.gen_random_solution(10)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+    for x in [0.01, 0.005, 0.001]:
+        for cooling_type in range(4):
+            random_solution = Solution(state=copy.deepcopy(rand_sol.state))
+            start = time.time()
+            all_points = simulated_annealing.execute(x, cooling_type, neighbour_func, random_solution)
+            end = time.time()
 
-    for cooling_type in range(4):
-        random_solution = Solution(state=copy.deepcopy(rand_sol.state))
-        start = time.time()
-        all_points = simulated_annealing.execute(0.01, cooling_type, neighbour_func, random_solution)
-        end = time.time()
-
-        bestSol, bestPoints = simulated_annealing.get_solution()
-        print("Elapsed time: ", end - start)
-        print("Best points obtained: ", bestPoints)
-        plt.plot(all_points, 'o-', markersize=3)
-        plt.ylabel("Best Solution's Points")
-        plt.show()
-
+            bestSol, bestPoints = simulated_annealing.get_solution()
+            print("Elapsed time: ", end - start)
+            print("Best points obtained: ", bestPoints)
+            plt.plot(all_points, 'o-', markersize=3)
+            plt.ylabel("Best Solution's Points")
+            plt.show()
+    """
 
