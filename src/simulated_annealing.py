@@ -21,7 +21,7 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = 5000
+        self.init_temperature = 4000
         self.runs_per_temp = 1 #iterations per temperature
         self.min_temperature = None
 
@@ -39,7 +39,7 @@ class SimulatedAnnealing(AlgorithmInterface):
 
 
         counter = 0
-        while counter < 1000:
+        while counter < 500:
             temperature = self.cooling(counter/self.runs_per_temp)
 
             if (temperature < self.min_temperature):

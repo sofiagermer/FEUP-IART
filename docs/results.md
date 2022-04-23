@@ -123,9 +123,9 @@
 
 ### Marathon 4.
 - **Light change odd:** 50
-- **Light variation amplitude:** 1
+- **Light variation amplitude:** 3
 - **Temperature**: 4000
-- **min_Temperature**: 0 (only stops when the 100 are achived)
+- **min_Temperature**: 0 (only stops when the 500 iterations are achived)
 - **max iterations**: 500
 - **Runs per temperature**: 1
 - **Starting solution**: 384 cars (356781 points)
@@ -155,9 +155,9 @@
 
 
 
-### Marathon 5.
+### Marathon 5. (TO-DO)
 - **Light change odd:** 50
-- **Light variation amplitude:** 1
+- **Light variation amplitude:** 3
 - **Temperature**: 4000
 - **min_Temperature**: 0 (only stops when the 1000 are achived)
 - **max iterations**: 500
@@ -186,3 +186,39 @@
 ![](images/sim-annealing/run5quacoolingresults.png)
 
 #### Observations
+
+
+### Marathon 6. (TO-DO)
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **Temperature**: 4000
+- **min_Temperature**: 0.01
+- **max iterations**: 500
+- **Runs per temperature**: 1
+- **Starting solution**:  cars ( points)
+
+#### Exponential cooling (0.9 instead of 0.7)
+
+![](images/sim-annealing/run6expcooling.png) 
+![](images/sim-annealing/run6expcoolingresults.png)
+
+
+#### Logarithmic cooling
+
+![](images/sim-annealing/run6logcooling.png)
+![](images/sim-annealing/run6logcoolingresults.png)
+
+#### Linear cooling
+
+![](images/sim-annealing/run6lincooling.png)
+![](images/sim-annealing/run6lincoolingresults.png)
+
+#### Quadratic cooling
+
+![](images/sim-annealing/run6quacooling.png)
+![](images/sim-annealing/run6quacoolingresults.png)
+
+#### Observations
+
+
+
