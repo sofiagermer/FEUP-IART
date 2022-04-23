@@ -119,3 +119,70 @@
 
 - Logarithmic cooling went nuts
 - Progression in other cooling methods remained the same
+
+
+### Marathon 4.
+- **Light change odd:** 50
+- **Light variation amplitude:** 1
+- **Temperature**: 4000
+- **min_Temperature**: 0 (only stops when the 100 are achived)
+- **max iterations**: 500
+- **Runs per temperature**: 1
+- **Starting solution**: 384 cars (356781 points)
+
+#### Exponential cooling (0.9 instead of 0.7)
+
+![](images/sim-annealing/run4expcooling.png)
+![](images/sim-annealing/run4expcoolingresults.png)
+
+
+#### Logarithmic cooling
+
+![](images/sim-annealing/run4logcooling.png)
+![](images/sim-annealing/run4logcoolingresults.png)
+
+#### Linear cooling
+
+![](images/sim-annealing/run4lincooling.png)
+![](images/sim-annealing/run4lincoolingresults.png)
+
+#### Quadratic cooling
+
+![](images/sim-annealing/run4quacooling.png)
+![](images/sim-annealing/run4quacoolingresults.png)
+
+#### Observations
+
+
+
+### Marathon 5.
+- **Light change odd:** 50
+- **Light variation amplitude:** 1
+- **Temperature**: 4000
+- **min_Temperature**: 0 (only stops when the 1000 are achived)
+- **max iterations**: 500
+- **Runs per temperature**: 3
+- **Starting solution**:  cars ( points)
+
+#### Exponential cooling (0.9 instead of 0.7)
+
+![](images/sim-annealing/run5expcooling.png) (missing) 
+![](images/sim-annealing/run5expcoolingresults.png)
+
+
+#### Logarithmic cooling
+
+![](images/sim-annealing/run5logcooling.png)
+![](images/sim-annealing/run5logcoolingresults.png)
+
+#### Linear cooling
+
+![](images/sim-annealing/run5lincooling.png)
+![](images/sim-annealing/run5lincoolingresults.png)
+
+#### Quadratic cooling
+
+![](images/sim-annealing/run5quacooling.png)
+![](images/sim-annealing/run5quacoolingresults.png)
+
+#### Observations
