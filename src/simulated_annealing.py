@@ -11,28 +11,37 @@ import random
 import time
 
 class SimulatedAnnealing(AlgorithmInterface):
+    EXP_COOLING = 0
+    LOG_COOLING = 1
+    LIN_COOLING = 2
+    QUAD_COOLING = 3
 
     def __init__(self, simulation):
         self.simulation = simulation
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = 100000
-        self.runs_per_temp = 30 #iterations per temperature
-        self.min_temperature = 0.001
+        self.init_temperature = 1000
+        self.runs_per_temp = 1 #iterations per temperature
+        self.min_temperature = None
 
-    def execute(self, neighbour_func):
+    def execute(self, min_temperature, cooling_type, neighbour_func, random_sol=None):
+        self.min_temperature = min_temperature
+        self.cooling_setup(cooling_type)
 
         all_points = []
-
-        self.best_solution.gen_random_solution(10)
+        if random_sol == None:
+            self.best_solution.gen_random_solution(10)
+        else:
+            self.best_solution = random_sol
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
 
 
         counter = 0
         while counter < 1000:
-            temperature = self.cooling(counter)
+            temperature = self.cooling(counter/self.runs_per_temp)
+
             if (temperature < self.min_temperature):
                 print("Too cold :(, Stopped algorith")
                 break
@@ -60,8 +69,17 @@ class SimulatedAnnealing(AlgorithmInterface):
         return all_points
 
 
-    def cooling(self, t):
-        return self.exponential_cooling(t)
+    def cooling_setup(self, cooling_type):
+        if cooling_type == self.EXP_COOLING:
+            self.cooling = self.exponential_cooling
+        elif cooling_type == self.LOG_COOLING:
+            self.cooling = self.log_cooling
+        elif cooling_type == self.LIN_COOLING:
+            self.cooling = self.linear_cooling
+        elif cooling_type == self.QUAD_COOLING:
+            self.cooling = self.quadratic_cooling
+        else:
+            raise Exception("Error: cooling type unavailable ")
 
     def exponential_cooling(self, t):
         return self.init_temperature * 0.7 ** t
