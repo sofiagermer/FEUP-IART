@@ -21,7 +21,7 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = 1000
+        self.init_temperature = 5000
         self.runs_per_temp = 1 #iterations per temperature
         self.min_temperature = None
 
