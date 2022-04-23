@@ -79,5 +79,5 @@ class Simulation:
 
     def evaluate_solution(self, data: str, solution):
         #file_parsing.parse_output(data, self.intersections, self.streets)
-        _, points = self.run(solution)
+        points = self.run(solution)
         return points
