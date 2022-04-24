@@ -43,21 +43,21 @@ if __name__ == "__main__":
 
     simulated_annealing = SimulatedAnnealing(simulation)
     sol = Solution(simulation)
-    #sol.gen_greedy_solution()
-    sol.gen_random_solution(10)
+    sol.gen_greedy_solution()
+    #sol.gen_random_solution(10)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-    for x in [0.01, 0.005, 0.001]:
-        for cooling_type in range(4):
-            random_solution = sol.copy()
-            start = time.time()
-            all_points = simulated_annealing.execute(x, cooling_type, neighbour_func, random_solution)
-            end = time.time()
 
-            bestSol, bestPoints = simulated_annealing.get_solution()
-            print("Elapsed time: ", end - start)
-            print("Best points obtained: ", bestPoints)
-            plt.plot(all_points, 'o-', markersize=3)
-            plt.ylabel("Best Solution's Points")
-            plt.show()
+    for cooling_type in range(4):
+        random_solution = sol.copy()
+        start = time.time()
+        all_points = simulated_annealing.execute(0.001, cooling_type, neighbour_func, random_solution)
+        end = time.time()
+
+        bestSol, bestPoints = simulated_annealing.get_solution()
+        print("Elapsed time: ", end - start)
+        print("Best points obtained: ", bestPoints)
+        plt.plot(all_points, 'o-', markersize=3)
+        plt.ylabel("Best Solution's Points")
+        plt.show()
 
 

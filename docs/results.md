@@ -154,17 +154,19 @@
 #### Observations
 
 
+## To use on the report:
+
 
 ### Marathon 5. (TO-DO)
 - **Light change odd:** 50
 - **Light variation amplitude:** 3
-- **Temperature**: 4000
-- **min_Temperature**: 0 (only stops when the 1000 are achived)
+- **Temperature**: 3000
+- **min_Temperature**: 0.01
 - **max iterations**: 500
-- **Runs per temperature**: 3
-- **Starting solution**:  cars ( points)
+- **Runs per temperature**: 1
+- **Starting solution**: greedy
 
-#### Exponential cooling (0.9 instead of 0.7)
+#### Exponential cooling
 
 ![](images/sim-annealing/run5expcooling.png) 
 ![](images/sim-annealing/run5expcoolingresults.png)
@@ -185,19 +187,18 @@
 ![](images/sim-annealing/run5quacooling.png)
 ![](images/sim-annealing/run5quacoolingresults.png)
 
-#### Observations
 
 
 ### Marathon 6. (TO-DO)
 - **Light change odd:** 50
 - **Light variation amplitude:** 3
-- **Temperature**: 4000
-- **min_Temperature**: 0.01
-- **max iterations**: 1000
+- **Temperature**: 3000
+- **min_Temperature**: 0.005
+- **max iterations**: 500
 - **Runs per temperature**: 1
-- **Starting solution**:  Greedy
+- **Starting solution**: greedy
 
-#### Exponential cooling (0.9 instead of 0.7)
+#### Exponential cooling
 
 ![](images/sim-annealing/run6expcooling.png) 
 ![](images/sim-annealing/run6expcoolingresults.png)
@@ -220,5 +221,34 @@
 
 #### Observations
 
+### Marathon 7. (TO-DO)
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **Temperature**: 3000
+- **min_Temperature**: 0.001
+- **max iterations**: 500
+- **Runs per temperature**: 1
+- **Starting solution**: greedy
+
+#### Exponential cooling
+
+![](images/sim-annealing/run7expcooling.png) 
+![](images/sim-annealing/run7expcoolingresults.png)
 
 
+#### Logarithmic cooling
+
+![](images/sim-annealing/run7logcooling.png)
+![](images/sim-annealing/run7logcoolingresults.png)
+
+#### Linear cooling
+
+![](images/sim-annealing/run7lincooling.png)
+![](images/sim-annealing/run7lincoolingresults.png)
+
+#### Quadratic cooling
+
+![](images/sim-annealing/run7quacooling.png)
+![](images/sim-annealing/run7quacoolingresults.png)
+
+#### Observations
