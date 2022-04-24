@@ -10,15 +10,19 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
     max_light_variation -> amplitude of the traffic light duration variation
     """
     def ret_func(old_solution):
-        solution = Solution(state=copy.deepcopy(old_solution.state))
+        solution = old_solution.copy()
 
         intersection = randint(0, len(solution.state) - 1)
 
-        # if the intersection only has one, it can't be shuffled
-        impossible_shuffle = len(solution.state[intersection]) == 1
+        while True:
+            while len(solution.state[intersection]) == 1: #Intersection with only one street don't need to be changed
+                intersection = randint(0, len(solution.state) - 1)
+
+            if len(set(solution.state[intersection][:,0]).intersection(solution.active_streets)) > 0:
+                break
 
         r = randint(1, 100)
-        if light_odd >= r or impossible_shuffle is True:
+        if light_odd >= r:
             #changes traffic light duration
 
             #print("Lights: ", intersection)

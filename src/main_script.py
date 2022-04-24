@@ -47,7 +47,7 @@ if __name__ == "__main__":
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     for x in [0.01, 0.005, 0.001]:
         for cooling_type in range(4):
-            random_solution = Solution(state=copy.deepcopy(sol.state))
+            random_solution = sol.copy()
             start = time.time()
             all_points = simulated_annealing.execute(x, cooling_type, neighbour_func, random_solution)
             end = time.time()
