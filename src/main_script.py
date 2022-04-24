@@ -5,6 +5,7 @@ import os
 from car import Car
 from chromosome import Chromosome
 from intersection import Intersection
+from iterated_local_search import IteratedLocalSearch
 from solution import Solution
 from genetic import Genetic
 from street import Street
@@ -43,6 +44,26 @@ if __name__ == "__main__":
 
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
+    sol = Solution(simulation)
+    sol.gen_greedy_solution()
+
+    points = simulation.run(sol)
+    #print(f'Points: {points}')
+
+    iter = IteratedLocalSearch(simulation)
+    iter.execute( gen_neighbour_lightOrOrder_func(50, simulation.duration), start_solution=sol, start_points=points)
+
+
+'''
+    start_population = []
+    for i in range(100):
+        solution = gen_neighbour_lightOrOrder_func(50, simulation.duration)(sol)
+        p = simulation.evaluate_solution(None, solution)
+        start_population.append(Chromosome(solution, p))
+    genetic = Genetic(simulation, max_improveless_iterations=None, max_iterations=50, population_size=100, elitism_num=20,mutation_probability=0.4, mutation_ops_percentage=0.1)
+    genetic.execute(start_population)
+    simulation.evaluate_solution(None, genetic.get_solution())
+    '''
     # HILL CLIMBING SIMULATION
     #hill_climbing = HillClimbing(simulation)
     #neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
@@ -50,32 +71,13 @@ if __name__ == "__main__":
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
+
+'''
     simulated_annealing = SimulatedAnnealing(simulation)
     rand_sol = Solution(simulation)
     rand_sol.gen_random_solution(10)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
 
-<<<<<<< HEAD
- #   start = time.time()
-    #all_points = simulated_annealing.execute(neighbour_func)
-    #end = time.time()
-    #bestSol, bestPoints = simulated_annealing.get_solution()
-   # start_population = [Chromosome(bestSol, bestPoints)]
-  #  for _ in range(24):
- #       solution = neighbour_func(bestSol)
-#        start_population.append(Chromosome(solution, simulation.run(solution)))
-
-    #print("Elapsed time: ", end-start)
-    #print("Best points obtained: ", bestPoints)
-    #plt.plot(all_points, 'o-', markersize=3)
-    #plt.ylabel('Best Points')
-    #plt.show()
-    genetic = Genetic(simulation, max_improveless_iterations=None, max_time=999999, population_size=50, elitism_num=10,mutation_probability=0.4, mutation_ops_percentage=0.1)
-    genetic.execute()
-    simulation.evaluate_solution(None, genetic.get_solution())
-
-
-=======
     for cooling_type in range(4):
         random_solution = Solution(state=copy.deepcopy(rand_sol.state))
         start = time.time()
@@ -88,6 +90,18 @@ if __name__ == "__main__":
         plt.plot(all_points, 'o-', markersize=3)
         plt.ylabel("Best Solution's Points")
         plt.show()
->>>>>>> fc9bfe2b11bbf8a3f8c7e6233c178ce1b006a6cd
 
+    for x in [0.01, 0.005, 0.001]:
+        for cooling_type in range(4):
+            random_solution = Solution(state=copy.deepcopy(rand_sol.state))
+            start = time.time()
+            all_points = simulated_annealing.execute(x, cooling_type, neighbour_func, random_solution)
+            end = time.time()
 
+            bestSol, bestPoints = simulated_annealing.get_solution()
+            print("Elapsed time: ", end - start)
+            print("Best points obtained: ", bestPoints)
+            plt.plot(all_points, 'o-', markersize=3)
+            plt.ylabel("Best Solution's Points")
+            plt.show()
+'''
