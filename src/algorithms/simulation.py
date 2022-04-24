@@ -1,11 +1,3 @@
-from collections import deque
-from car import Car
-from intersection import Intersection
-from street import Street
-from solution import Solution
-import file_parsing
-
-
 class Simulation:
     def __init__(self, duration, points_per_car, intersections, streets, cars):
         self.duration = duration

@@ -1,14 +1,9 @@
-from car import Car
-from intersection import Intersection
-from street import Street
-from algorithm_interface import AlgorithmInterface
-from simulation import Simulation
-from solution import Solution
+from .algorithm_interface import AlgorithmInterface
+from .solution import Solution
 
-import matplotlib.pyplot as plt
 from math import log, exp
 import random
-import time
+
 
 class SimulatedAnnealing(AlgorithmInterface):
     EXP_COOLING = 0

@@ -1,16 +1,8 @@
-import unittest
-import os
-
-from car import Car
-from intersection import Intersection
-from solution import Solution
-from street import Street
-from hill_climbing import HillClimbing
-from simulated_annealing import SimulatedAnnealing
-from algorithm_interface import AlgorithmInterface
-from simulation import Simulation
+from algorithms.solution import Solution
+from algorithms.simulated_annealing import SimulatedAnnealing
+from algorithms.simulation import Simulation
 import file_parsing
-from algorithm_utils import gen_neighbour_lightOrOrder_func
+from algorithms.algorithm_utils import gen_neighbour_lightOrOrder_func
 
 import matplotlib.pyplot as plt
 import time
@@ -40,11 +32,6 @@ if __name__ == "__main__":
 
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
-    sol = Solution(simulation)
-    sol.gen_greedy_solution()
-
-    points = simulation.run(sol)
-    print(f'Points: {points}')
 
     # HILL CLIMBING SIMULATION
     #hill_climbing = HillClimbing(simulation)
@@ -53,14 +40,14 @@ if __name__ == "__main__":
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
-    """
+
     simulated_annealing = SimulatedAnnealing(simulation)
-    rand_sol = Solution(simulation)
-    rand_sol.gen_random_solution(10)
+    sol = Solution(simulation)
+    sol.gen_greedy_solution()
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     for x in [0.01, 0.005, 0.001]:
         for cooling_type in range(4):
-            random_solution = Solution(state=copy.deepcopy(rand_sol.state))
+            random_solution = Solution(state=copy.deepcopy(sol.state))
             start = time.time()
             all_points = simulated_annealing.execute(x, cooling_type, neighbour_func, random_solution)
             end = time.time()
@@ -71,5 +58,5 @@ if __name__ == "__main__":
             plt.plot(all_points, 'o-', markersize=3)
             plt.ylabel("Best Solution's Points")
             plt.show()
-    """
+
 

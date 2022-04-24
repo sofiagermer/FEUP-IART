@@ -42,3 +42,7 @@ class Solution:
             _gcd = np.gcd.reduce(intersection[:, 1])
             for street in intersection:
                 street[1] = street[1] // _gcd
+
+
+    #def get_active_streets(self):
+
