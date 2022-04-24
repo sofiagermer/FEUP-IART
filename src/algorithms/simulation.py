@@ -58,6 +58,7 @@ class Simulation:
                     self.points += self.points_per_car
                     car_counter += 1
 
+
             # Update Each Semaphore State  after 1 second
             for intersection in self.intersections:
                 intersection.update_semaphores(self.streets)

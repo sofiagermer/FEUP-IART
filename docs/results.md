@@ -193,9 +193,9 @@
 - **Light variation amplitude:** 3
 - **Temperature**: 4000
 - **min_Temperature**: 0.01
-- **max iterations**: 500
+- **max iterations**: 1000
 - **Runs per temperature**: 1
-- **Starting solution**:  cars ( points)
+- **Starting solution**:  Greedy
 
 #### Exponential cooling (0.9 instead of 0.7)
 
