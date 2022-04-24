@@ -1,6 +1,3 @@
-from pickle import TRUE
-
-
 class Car:
     def __init__(self, streets):
         """
