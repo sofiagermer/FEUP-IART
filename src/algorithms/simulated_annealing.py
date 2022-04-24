@@ -16,7 +16,7 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-        self.init_temperature = 4000
+        self.init_temperature = 3000
         self.runs_per_temp = 1 #iterations per temperature
         self.min_temperature = None
 
@@ -77,10 +77,10 @@ class SimulatedAnnealing(AlgorithmInterface):
             raise Exception("Error: cooling type unavailable ")
 
     def exponential_cooling(self, t):
-        return self.init_temperature * 0.7 ** t
+        return self.init_temperature * 0.9 ** t
 
     def log_cooling(self, t):
-        return self.init_temperature / (1 + log(1 + t))
+        return self.init_temperature / (1 + log(1 + 10*t))
 
     def linear_cooling(self, t):
         return self.init_temperature / (1 + t)
