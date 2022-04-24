@@ -14,12 +14,16 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
 
         intersection = randint(0, len(solution.state) - 1)
 
-        while True:
+        counter = 0 #If in 100 attempts it doesn
+        while counter < 100:
             while len(solution.state[intersection]) == 1: #Intersection with only one street don't need to be changed
                 intersection = randint(0, len(solution.state) - 1)
 
-            if len(set(solution.state[intersection][:,0]).intersection(solution.active_streets)) > 0:
+            if len(set(solution.state[intersection][:,0]).intersection(solution.active_streets)) > 1:
                 break
+
+            counter+=1
+
 
         r = randint(1, 100)
         if light_odd >= r:
