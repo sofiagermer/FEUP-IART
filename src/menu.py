@@ -166,13 +166,13 @@ class Menu:
         #sol.gen_random_solution(10)
         neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
 
-        for cooling_type in range(4):
-            random_solution = sol.copy()
-            start = time.time()
-            all_points = simulated_annealing.execute(0.001, cooling_type, neighbour_func, random_solution)
-            end = time.time()
 
-            _, bestPoints = simulated_annealing.get_solution()
+        random_solution = sol.copy()
+        start = time.time()
+        all_points = simulated_annealing.execute(0.01, 0, neighbour_func, random_solution)
+        end = time.time()
+
+        _, bestPoints = simulated_annealing.get_solution()
         
         if plot:
             plt.plot(all_points, 'o-', markersize=3)
