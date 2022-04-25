@@ -12,7 +12,8 @@ class TabuSeach(AlgorithmInterface):
 
 
     def execute(self, max_tabusize, neighbour_func, random_sol=None):
-        all_points = []
+        best_cand_points = []
+
         self.max_tabusize = max_tabusize
         self.tabu_list = deque([])
 
@@ -22,28 +23,28 @@ class TabuSeach(AlgorithmInterface):
             self.best_solution = random_sol
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
-        all_points.append(self.best_points)
+        best_cand_points.append(self.best_points)
 
         best_candidate = self.best_solution
         self.update_tabulist(best_candidate)
         counter = 0
-        while counter < 50:
+        while counter < 100:
             nbh = []
             for x in range(10):
                 nbh.append(neighbour_func(best_candidate))
 
             best_candidate, best_candidate_points = self.best_admissable_sol(nbh)
+            best_cand_points.append(best_candidate_points)
 
             if best_candidate_points > self.best_points:
                 self.best_solution = best_candidate
                 self.best_points = best_candidate_points
-                all_points.append(best_candidate_points)
 
             self.update_tabulist(best_candidate)
 
             counter += 1
 
-        return all_points
+        return best_cand_points
 
 
     def best_admissable_sol(self, nbh):

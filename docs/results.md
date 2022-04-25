@@ -252,3 +252,55 @@
 ![](images/sim-annealing/run7quacoolingresults.png)
 
 #### Observations
+
+
+
+## Tabu Search
+
+### Run1
+
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **num iterations**: 100
+- **neighbourhood size**: 5
+- **tabu_list size**: 10
+- **Starting solution**: greedy
+
+![](images/tabu/run1.png)
+![](images/tabu/run1results.png)
+
+### Run2
+
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **num iterations**: 100
+- **neighbourhood size**: 10
+- **tabu_list size**: 10
+- **Starting solution**: greedy
+
+![](images/tabu/run2.png)
+![](images/tabu/run2results.png)
+
+### Run3
+
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **num iterations**: 100
+- **neighbourhood size**: 5
+- **tabu_list size**: 20
+- **Starting solution**: greedy
+
+![](images/tabu/run3.png)
+![](images/tabu/run3results.png)
+
+### Run4
+
+- **Light change odd:** 50
+- **Light variation amplitude:** 3
+- **num iterations**: 100
+- **neighbourhood size**: 10
+- **tabu_list size**: 20
+- **Starting solution**: greedy
+
+![](images/tabu/run4.png)
+![](images/tabu/run4results.png)

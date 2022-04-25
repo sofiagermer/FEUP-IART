@@ -65,16 +65,16 @@ if __name__ == "__main__":
     # Tabu Search
     tabu_search = TabuSeach(simulation)
     sol = Solution(simulation)
-    sol.gen_random_solution(10)
+    sol.gen_greedy_solution()
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     start = time.time()
-    all_points = tabu_search.execute(30, neighbour_func, sol)
+    best_cand_points = tabu_search.execute(20, neighbour_func, sol)
     end = time.time()
 
     bestSol, bestPoints = tabu_search.get_solution()
     print("Elapsed time: ", end - start)
     print("Best points obtained: ", bestPoints)
-    plt.plot(all_points, 'o-', markersize=3)
-    plt.ylabel("Best Solution's Points")
+    plt.plot(best_cand_points, 'o-', markersize=3)
+    plt.ylabel("Points")
     plt.show()
 
