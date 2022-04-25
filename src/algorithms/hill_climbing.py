@@ -1,7 +1,6 @@
-from algorithm_interface import AlgorithmInterface
-from solution import Solution
+from .algorithm_interface import AlgorithmInterface
+from .solution import Solution
 
-import matplotlib.pyplot as plt
 
 
 class HillClimbing(AlgorithmInterface):
@@ -20,7 +19,7 @@ class HillClimbing(AlgorithmInterface):
 
         no_improvement = 0
 
-        for a in range(1000):
+        for _ in range(1000):
 
             if no_improvement == 50:
                 break
@@ -37,9 +36,6 @@ class HillClimbing(AlgorithmInterface):
 
             all_points.append(self.best_points)
 
-        plt.plot(all_points, 'o-')
-        plt.ylabel('Best Points')
-        plt.show()
 
     def get_solution(self):
         return self.best_solution, self.best_points

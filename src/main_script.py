@@ -1,4 +1,5 @@
 from algorithms.solution import Solution
+from algorithms.hill_climbing import HillClimbing
 from algorithms.simulated_annealing import SimulatedAnnealing
 from algorithms.tabu import TabuSeach
 from algorithms.simulation import Simulation
@@ -7,9 +8,8 @@ from algorithms.algorithm_utils import gen_neighbour_lightOrOrder_func
 
 import matplotlib.pyplot as plt
 import time
-import copy
 
-
+from visualization import Visualization
 
 class Program:
     """
@@ -21,27 +21,35 @@ class Program:
     def run(self):
         pass
 
+
     def mainmenu(self):
         print("=======Traffic light optimization=======")
         print("")
 
 
-
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
-    #file_parsing.parse_output("data/output/e.txt", intersections, streets)
-
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
 
     # HILL CLIMBING SIMULATION
+
+    hill_climbing = HillClimbing(simulation)
+    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+    hill_climbing.execute(neighbour_func)
+    bestSol, bestPoints = hill_climbing.get_solution()
+
+    visualization = Visualization(simulation.duration, simulation.points_per_car, simulation.intersections, simulation.streets, simulation.cars)
+
+    simulation.run_visualization(visualization, bestSol)
+
     #hill_climbing = HillClimbing(simulation)
     #neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     #hill_climbing.execute(neighbour_func)
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
-
+    """
     simulated_annealing = SimulatedAnnealing(simulation)
     sol = Solution(simulation)
     sol.gen_greedy_solution()
@@ -60,7 +68,7 @@ if __name__ == "__main__":
         plt.plot(all_points, 'o-', markersize=3)
         plt.ylabel("Best Solution's Points")
         plt.show()
-
+    """
 
     # Tabu Search
     """
@@ -79,4 +87,5 @@ if __name__ == "__main__":
     plt.ylabel("Points")
     plt.show()
     """
+
 
