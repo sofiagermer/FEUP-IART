@@ -242,7 +242,6 @@ class Visualization:
             
         elif current_street.name == "rue-de-rome": # esquerda -> direita
             self.cars_positions[car][1][0] -= step_normal
-            print("self.cars_positions[car][1][0]: ", self.cars_positions[car][1][0])
 
         elif current_street.name == "rue-d-athenes": # baixo -> cima
             self.cars_positions[car][1][1] -= step_normal

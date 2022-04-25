@@ -117,6 +117,7 @@ class Simulation:
 
                     
         for i in range(self.duration):
+            # pygame.time.wait(1000)
             # Update Each Car Position's after 1 second
             cars_that_change_street = []
             cars_that_move_foward = []
