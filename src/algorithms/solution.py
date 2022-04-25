@@ -61,6 +61,7 @@ class Solution:
             for street in intersection:
                 street[1] = street[1] // _gcd
 
+
     def copy(self):
         """
         Makes a deepcopy of a solution

@@ -28,12 +28,12 @@ class Program:
 
 
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/b.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/f.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
     sol = Solution(simulation)
     start = time.time()
-    sol.gen_greedy_solution()
+    sol.gen_random_solution(3)
     end = time.time()
     print(f'Points: {simulation.run(sol)}')
 
