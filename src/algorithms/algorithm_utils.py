@@ -1,6 +1,6 @@
-from random import randint
 from .solution import Solution
-import copy
+from random import randint, randrange
+import numpy as np
 
 def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
     """
@@ -40,6 +40,16 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
     return ret_func
 
 
+def switch_traffic_lights(solution, _):
+    intersection = randrange(0, len(solution.state))
+
+    return switch_semaphore_order(solution, intersection)
+
+def change_green_light_duration(solution, max_light_offset):
+    intersection = randrange(0, len(solution.state))
+    print("change  green light duration")
+    return change_semaphore_duration(solution, intersection, max_light_offset)
+
 def change_semaphore_duration(solution, intersection, max_light_variation):
     """
     Operators that changes a semaphore duration
@@ -74,8 +84,6 @@ def switch_semaphore_order(solution, intersection):
     ------
     solution : solution to be changed
     intersection : solution's intersection id to be changed
-
-
     returns the changed solution
     """
     s1 = randint(0, len(solution.state[intersection]) - 1)

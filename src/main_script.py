@@ -1,8 +1,10 @@
-from algorithms.solution import Solution
 from algorithms.hill_climbing import HillClimbing
 from algorithms.simulated_annealing import SimulatedAnnealing
 from algorithms.tabu import TabuSeach
+from algorithms.genetic import Genetic
+from algorithms.iterated_local_search import IteratedLocalSearch
 from algorithms.simulation import Simulation
+from algorithms.solution import Solution
 import file_parsing
 from algorithms.algorithm_utils import gen_neighbour_lightOrOrder_func
 
@@ -28,18 +30,44 @@ class Program:
 
 
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/f.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
+    #Greedy
+    """
     sol = Solution(simulation)
     start = time.time()
-    sol.gen_random_solution(3)
+    sol.gen_greedy_solution()
     end = time.time()
     print(f'Points: {simulation.run(sol)}')
-
     print(f'time: {end-start}')
+    """
 
-    # HILL CLIMBING SIMULATION
+    #Iterative Local Seach
+
+    iter = IteratedLocalSearch(simulation)
+    sol = Solution(simulation)
+    sol.gen_greedy_solution()
+    points = simulation.run(sol)
+
+    start = time.time()
+    solution, best_points = iter.execute( gen_neighbour_lightOrOrder_func(50, simulation.duration), start_solution=sol, start_points=points)
+    end = time.time()
+    print(f'points: {best_points}')
+    print(f'time: {end - start}')
+
+    '''
+    start_population = []
+    for i in range(100):
+        solution = gen_neighbour_lightOrOrder_func(50, simulation.duration)(sol)
+        p = simulation.evaluate_solution(None, solution)
+        start_population.append(Chromosome(solution, p))
+    genetic_utils = Genetic(simulation, max_improveless_iterations=None, max_iterations=50, population_size=100, elitism_num=20,mutation_probability=0.4, mutation_ops_percentage=0.1)
+    genetic_utils.execute(start_population)
+    simulation.evaluate_solution(None, genetic_utils.get_solution())
+    '''
+
+    #HILL CLIMBING SIMULATION
     """
     
     hill_climbing = HillClimbing(simulation)
@@ -56,44 +84,3 @@ if __name__ == "__main__":
     #hill_climbing.execute(neighbour_func)
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
     """
-    # SIMULATED ANNEALING
-    """
-    simulated_annealing = SimulatedAnnealing(simulation)
-    sol = Solution(simulation)
-    sol.gen_greedy_solution()
-    #sol.gen_random_solution(10)
-    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-
-    for cooling_type in range(4):
-        random_solution = sol.copy()
-        start = time.time()
-        all_points = simulated_annealing.execute(0.001, cooling_type, neighbour_func, random_solution)
-        end = time.time()
-
-        bestSol, bestPoints = simulated_annealing.get_solution()
-        print("Elapsed time: ", end - start)
-        print("Best points obtained: ", bestPoints)
-        plt.plot(all_points, 'o-', markersize=3)
-        plt.ylabel("Best Solution's Points")
-        plt.show()
-    """
-
-    # Tabu Search
-    """
-    tabu_search = TabuSeach(simulation)
-    sol = Solution(simulation)
-    sol.gen_greedy_solution()
-    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-    start = time.time()
-    best_cand_points = tabu_search.execute(20, neighbour_func, sol)
-    end = time.time()
-
-    bestSol, bestPoints = tabu_search.get_solution()
-    print("Elapsed time: ", end - start)
-    print("Best points obtained: ", bestPoints)
-    plt.plot(best_cand_points, 'o-', markersize=3)
-    plt.ylabel("Points")
-    plt.show()
-    """
-
-
