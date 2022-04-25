@@ -1,5 +1,6 @@
 from algorithms.solution import Solution
 from algorithms.simulated_annealing import SimulatedAnnealing
+from algorithms.tabu import TabuSeach
 from algorithms.simulation import Simulation
 import file_parsing
 from algorithms.algorithm_utils import gen_neighbour_lightOrOrder_func
@@ -40,7 +41,7 @@ if __name__ == "__main__":
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
-
+    """
     simulated_annealing = SimulatedAnnealing(simulation)
     sol = Solution(simulation)
     sol.gen_greedy_solution()
@@ -59,5 +60,21 @@ if __name__ == "__main__":
         plt.plot(all_points, 'o-', markersize=3)
         plt.ylabel("Best Solution's Points")
         plt.show()
+    """
 
+    # Tabu Search
+    tabu_search = TabuSeach(simulation)
+    sol = Solution(simulation)
+    sol.gen_random_solution(10)
+    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+    start = time.time()
+    all_points = tabu_search.execute(30, neighbour_func, sol)
+    end = time.time()
+
+    bestSol, bestPoints = tabu_search.get_solution()
+    print("Elapsed time: ", end - start)
+    print("Best points obtained: ", bestPoints)
+    plt.plot(all_points, 'o-', markersize=3)
+    plt.ylabel("Best Solution's Points")
+    plt.show()
 
