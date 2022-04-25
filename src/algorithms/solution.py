@@ -56,6 +56,8 @@ class Solution:
                 if street[0] in self.active_streets:
                     street[1] = self.active_streets[street[0]]
             _gcd = np.gcd.reduce(intersection[:, 1])
+            if _gcd == 0:
+                _gcd = 1
             for street in intersection:
                 street[1] = street[1] // _gcd
 
