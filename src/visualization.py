@@ -1,4 +1,5 @@
 import re
+from numpy import number
 import pygame
 import os
 import file_parsing
@@ -68,34 +69,36 @@ STREET_MOSCOW_POSITION = [INTERSECTION_COORDINATES_1,INTERSECTION_COORDINATES_2]
 CAR_AMESTERDAM_POSITION_END = [STREET_AMESTERDAM_POSITION[0][0], STREET_AMESTERDAM_POSITION[0][1]]
 CAR_ROMA_POSITION_END = [STREET_ROMA_POSITION[0][0], STREET_ROMA_POSITION[0][1]+25]
 CAR_ATHENES_POSITION_END = [STREET_ATHENAS_POSITION[0][0], STREET_ATHENAS_POSITION[0][1]]
-CAR_LONDON_POSITION_END = [STREET_LONDON_POSITION[0][0]+25,STREET_ATHENAS_POSITION[0][1]]
+CAR_LONDON_POSITION_END = [STREET_LONDON_POSITION[0][0],STREET_ATHENAS_POSITION[0][1]]
 CAR_MOSCOW_POSITION_END = [STREET_MOSCOW_POSITION[1][0], STREET_MOSCOW_POSITION[1][1]]
 
 CAR_AMESTERDAM_POSITION_BEGINING = [STREET_AMESTERDAM_POSITION[1][0], STREET_AMESTERDAM_POSITION[1][1]]
 CAR_ROMA_POSITION_BEGINING = [STREET_ROMA_POSITION[1][0], STREET_ROMA_POSITION[1][1]+25]
 CAR_ATHENES_POSITION_BEGINING = [STREET_ATHENAS_POSITION[1][0], STREET_ATHENAS_POSITION[1][1]]
-CAR_LONDON_POSITION_BEGINING = [STREET_LONDON_POSITION[1][0]+25,STREET_ATHENAS_POSITION[1][1]]
+CAR_LONDON_POSITION_BEGINING = [STREET_LONDON_POSITION[1][0],STREET_ATHENAS_POSITION[1][1]]
 CAR_MOSCOW_POSITION_BEGINING = [STREET_MOSCOW_POSITION[0][0], STREET_MOSCOW_POSITION[0][1]]
 
 #traffic ligths
-TRAFFIC_LIGHT_WIDTH = 50
-TRAFFIC_LIGHT_HEIGHT = 50
+TRAFFIC_LIGHT_WIDTH = 35
+TRAFFIC_LIGHT_HEIGHT = 35
 RED_LIGHT = pygame.image.load(os.path.join('images', 'red_ligth.png'))
 RED_LIGHT = pygame.transform.scale(RED_LIGHT, (TRAFFIC_LIGHT_WIDTH,TRAFFIC_LIGHT_HEIGHT))
 GREEN_LIGHT = pygame.image.load(os.path.join('images', 'green_ligth.png'))
 GREEN_LIGHT = pygame.transform.scale(GREEN_LIGHT, (TRAFFIC_LIGHT_WIDTH,TRAFFIC_LIGHT_HEIGHT))
 
-#time's font color
+#time's font color20
 CLOCK_WIDTH = 50
 CLOCK_HEIGHT = 50
 CLOCK = pygame.image.load(os.path.join('images', 'clock.png'))
 CLOCK = pygame.transform.scale(CLOCK, (CLOCK_WIDTH,CLOCK_HEIGHT))
 GREY = (105, 105, 105)
 
+# points
+POINTS = pygame.image.load(os.path.join('images', 'points.png'))
+POINTS = pygame.transform.scale(POINTS, (CLOCK_WIDTH,CLOCK_HEIGHT))
+
 class Visualization:
-    def __init__(self, duration, points_per_car, intersections, streets, cars):
-        self.duration = duration
-        self.points_per_car = points_per_car
+    def __init__(self, intersections, streets, cars):
         self.intersections = intersections
         self.streets = streets
         self.cars = cars
@@ -166,32 +169,50 @@ class Visualization:
     def define_traffic_lights(self):
         traffic_ligths = {}
 
-        moscow = pygame.Rect(STREET_MOSCOW_POSITION[0][0], STREET_MOSCOW_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        moscow = pygame.Rect(STREET_MOSCOW_POSITION[0][0]+60, STREET_MOSCOW_POSITION[0][1]+60,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-de-moscou"] = [moscow, GREEN_LIGHT, RED_LIGHT]
 
-        athenas = pygame.Rect(STREET_ATHENAS_POSITION[0][0], STREET_ATHENAS_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        athenas = pygame.Rect(STREET_ATHENAS_POSITION[0][0]+10, STREET_ATHENAS_POSITION[0][1]+20,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-d-athenes"] =  [athenas, GREEN_LIGHT, RED_LIGHT]
 
-        london = pygame.Rect(STREET_LONDON_POSITION[0][0], STREET_LONDON_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        london = pygame.Rect(STREET_LONDON_POSITION[0][0]+10, STREET_LONDON_POSITION[0][1]+20,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-de-londres"] =  [london, GREEN_LIGHT, RED_LIGHT]
 
-        amsterdam = pygame.Rect(STREET_AMESTERDAM_POSITION[0][0], STREET_AMESTERDAM_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        amsterdam = pygame.Rect(STREET_AMESTERDAM_POSITION[0][0]+20, STREET_AMESTERDAM_POSITION[0][1]+10,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-d-amsterdam"] = [amsterdam, GREEN_LIGHT, RED_LIGHT]
 
-        roma = pygame.Rect(STREET_ROMA_POSITION[0][0], STREET_ROMA_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        roma = pygame.Rect(STREET_ROMA_POSITION[0][0]+20, STREET_ROMA_POSITION[0][1],TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-de-rome"] =  [roma, GREEN_LIGHT, RED_LIGHT]
 
         return traffic_ligths
 
     def draw_time(self,time_elapsed):
+        WIN.blit(CLOCK,(20,20))
+
         font1 = pygame.font.SysFont('chalkduster.ttf', 30)
         img = font1.render(str(time_elapsed), True, GREY)
-        WIN.blit(img, (20, 20))
+        WIN.blit(img, (80, 35))
 
-    def draw_window(self, streets, time_elapsed):
+    def draw_cars_arrived(self, number_cars_arrived):
+        WIN.blit(CAR_AMESTERDAM,(150,15))
+        font1 = pygame.font.SysFont('chalkduster.ttf', 30)
+        img = font1.render(str(number_cars_arrived), True, GREY)
+        WIN.blit(img, (230, 35))
+    
+    def draw_points(self,total_points):
+        WIN.blit(POINTS,(300,20))
+        font1 = pygame.font.SysFont('chalkduster.ttf', 30)
+        img = font1.render(str(total_points), True, GREY)
+        WIN.blit(img, (360, 35))
+
+    def draw_window(self, streets, time_elapsed, number_cars_arrived, total_points):
         WIN.blit(back_ground, (0, 0))
         
+        #top bar indormation
         self.draw_time(time_elapsed)
+        self.draw_cars_arrived(number_cars_arrived)
+        self.draw_points(total_points)
+
 
         for street in streets:
             WIN.blit(self.streets_rect[street][1],(self.streets_rect[street][0].x,self.streets_rect[street][0].y))
@@ -199,28 +220,29 @@ class Visualization:
         for intersection in self.intersections:
             WIN.blit(self.intersections_rect[intersection.id][1], (self.intersections_rect[intersection.id][0].x, self.intersections_rect[intersection.id][0].y))
 
-        for car in self.cars_positions:
-            WIN.blit(self.cars_positions[car][0], (self.cars_positions[car][1][0], self.cars_positions[car][1][1]))
-
         for street in streets:
             if streets[street].green_light:
                 WIN.blit(self.traffic_lights[street][1],(self.traffic_lights[street][0].x,self.traffic_lights[street][0].y))
             else:
                 WIN.blit(self.traffic_lights[street][2],(self.traffic_lights[street][0].x,self.traffic_lights[street][0].y))
+        
+        for car in self.cars_positions:
+            WIN.blit(self.cars_positions[car][0], (self.cars_positions[car][1][0], self.cars_positions[car][1][1]))
 
         pygame.display.update()
 
-    def update_car_position(self, car):
+    def update_car_position(self, car, current_street):
         # andar uma unidade para a frente na mesma estrada
 
-        current_street = car.streets[car.current_street_index]
-        step_normal = (STREET_HEIGHT/car.streets[car.current_street_index].length)/100
+        step_normal = (STREET_HEIGHT/current_street.length)/100
 
         if current_street.name == "rue-d-amsterdam": # esquerda -> direita
+            print("estou a mover o carro na rua de amesterdão")
             self.cars_positions[car][1][0] -= step_normal
             
         elif current_street.name == "rue-de-rome": # esquerda -> direita
             self.cars_positions[car][1][0] -= step_normal
+            print("self.cars_positions[car][1][0]: ", self.cars_positions[car][1][0])
 
         elif current_street.name == "rue-d-athenes": # baixo -> cima
             self.cars_positions[car][1][1] -= step_normal
@@ -233,7 +255,6 @@ class Visualization:
             self.cars_positions[car][1][1] += step_normal
     
     def change_car_street(self,car):
-
         current_street = car.streets[car.current_street_index]
 
         if current_street.name == "rue-d-amsterdam": # esquerda -> direita

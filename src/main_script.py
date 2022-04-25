@@ -39,7 +39,7 @@ if __name__ == "__main__":
     hill_climbing.execute(neighbour_func)
     bestSol, bestPoints = hill_climbing.get_solution()
 
-    visualization = Visualization(simulation.duration, simulation.points_per_car, simulation.intersections, simulation.streets, simulation.cars)
+    visualization = Visualization(simulation.intersections, simulation.streets, simulation.cars)
 
     simulation.run_visualization(visualization, bestSol)
 
