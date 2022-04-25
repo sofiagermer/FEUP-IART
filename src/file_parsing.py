@@ -1,9 +1,14 @@
-from car import Car
-from intersection import Intersection
-from street import Street
+from model.car import Car
+from model.intersection import Intersection
+from model.street import Street
 
 #PARSE INPUT
 def parse(file_path):
+    """
+    Parses the file input into python data containers
+    ------
+    file_path : file's path
+    """
     with open(file_path) as f:
         lines = f.read().splitlines()
     
@@ -63,6 +68,13 @@ def __parse_cars(lines, streets):
 
 #PARSE OUPUT
 def parse_output(file_path, intersections, streets):
+    """
+    Parses the file output into specific given python data containers
+    ------
+    file_path : file's path
+    intersection : intersection container
+    streets : streets container
+    """
     with open(file_path) as f:
         lines = f.read().splitlines()
     
