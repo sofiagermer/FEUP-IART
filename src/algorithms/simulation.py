@@ -1,5 +1,15 @@
 class Simulation:
     def __init__(self, duration, points_per_car, intersections, streets, cars):
+        """
+        Initializes the Simulation with it's elements
+        --------
+        duration : simulation's duration
+        points_per_car : points atributed to the simulation when a car finishes its path
+        instersection : list with all the intersections
+        streets : dictionary with all the streets, using the streets' name as keys
+        cars : list with all the cars
+        """
+
         self.duration = duration
         self.points_per_car = points_per_car
         self.intersections = intersections
@@ -8,6 +18,9 @@ class Simulation:
         self.points = 0
 
     def reset_state(self):
+        """
+        Resets the simulation to its original state
+        """
         for intersection in self.intersections:
             intersection.reset_state()
 
@@ -18,6 +31,11 @@ class Simulation:
             car.reset_state()
 
     def import_solution(self, solution):
+        """
+        Imports a solution to the simulation
+        -------
+        solution : solution to be imported
+        """
         for intersection_id in range(len(solution.state)):
             intersection = self.intersections[intersection_id]
             for [name, green_duration] in solution.state[intersection_id]:
@@ -31,6 +49,14 @@ class Simulation:
 
 
     def run(self, solution=None):
+        """
+        Runs the simulation
+        -------
+        solution : solution that can be imported before the simulation executes´
+
+        returns the points made by the simulation
+
+        """
         if solution is not None:
             self.reset_state()
             self.import_solution(solution)
@@ -61,15 +87,10 @@ class Simulation:
 
             # Update Each Semaphore State  after 1 second
             for intersection in self.intersections:
-                intersection.update_semaphores(self.streets)
+                intersection.update_semaphores()
 
         for car in self.cars:
             car.finished_path = False
         print("points: ", self.points)
         print("cars that arrived on time: ", car_counter)
         return self.points
-
-    def evaluate_solution(self, data: str, solution):
-        #file_parsing.parse_output(data, self.intersections, self.streets)
-        _, points = self.run(solution)
-        return points

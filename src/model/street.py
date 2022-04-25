@@ -6,10 +6,10 @@ class Street:
         """
         Street data class
         -------------
-        :param name: name of the street (unique)
-        :param length: length of the street
-        :param start_intersection: id of the start_intersection
-        :param end_intersection: id of the end_intersection
+        name: name of the street (unique)
+        length: length of the street
+        start_intersection: id of the start_intersection
+        end_intersection: id of the end_intersection
         """
         self.name = name
         self.length = length
@@ -20,6 +20,9 @@ class Street:
         self.green_light = False
 
     def reset_state(self):
+        """
+        Resets the streets state
+        """
         self.car_list = deque([])
         self.light_duration = 0
         self.green_light = False

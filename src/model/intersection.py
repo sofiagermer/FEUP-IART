@@ -1,7 +1,9 @@
 class Intersection:
     def __init__(self, id):
         """
-        :param id: unique id of the intersection
+        Initiates an intersection
+        -----------
+        id: unique id of the intersection
         """
         self.id = id
         self.incoming = []
@@ -13,6 +15,9 @@ class Intersection:
         self.counter = 0
 
     def reset_state(self):
+        """
+        Resets the intersection
+        """
         self.car_in_intersection = None
         self.new_car_in_intersection = False
         self.green_streets = []
@@ -25,8 +30,10 @@ class Intersection:
     def add_outgoing(self, street):
         self.outgoing.append(street)
     
-    def update_semaphores(self, streets):
-
+    def update_semaphores(self):
+        """
+        Updates the semaphore in an intersection
+        """
         #resets value
         self.new_car_in_intersection = False
 

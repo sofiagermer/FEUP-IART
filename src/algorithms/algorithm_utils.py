@@ -29,19 +29,29 @@ def gen_neighbour_lightOrOrder_func(light_odd, max_light_variation):
         if light_odd >= r:
             #changes traffic light duration
 
-            #print("Lights: ", intersection)
+
             return change_semaphore_duration(solution, intersection, max_light_variation)
 
         else:
             #changes traffic light order
 
-            #print("Order: ", intersection)
             return switch_semaphore_order(solution, intersection)
 
     return ret_func
 
 
 def change_semaphore_duration(solution, intersection, max_light_variation):
+    """
+    Operators that changes a semaphore duration
+    ------
+    solution : solution to be changed
+    intersection : solution's intersection id to be changed
+    max_light_variation : amplitude of the light variation. Light will vary randomly between the values
+                          [-max_light_variation , max_light_variation]
+
+
+    returns the changed solution
+    """
     street = randint(0, len(solution.state[intersection]) - 1)
     increment = randint(1, max_light_variation)
 
@@ -59,6 +69,15 @@ def change_semaphore_duration(solution, intersection, max_light_variation):
     return solution
 
 def switch_semaphore_order(solution, intersection):
+    """
+    Operators that changes the order of the semaphores in an intersection
+    ------
+    solution : solution to be changed
+    intersection : solution's intersection id to be changed
+
+
+    returns the changed solution
+    """
     s1 = randint(0, len(solution.state[intersection]) - 1)
     s2 = randint(0, len(solution.state[intersection]) - 1)
     while s1 == s2:

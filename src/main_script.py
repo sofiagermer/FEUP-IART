@@ -41,7 +41,7 @@ if __name__ == "__main__":
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
 
     # SIMULATED ANNEALING
-    """
+
     simulated_annealing = SimulatedAnnealing(simulation)
     sol = Solution(simulation)
     sol.gen_greedy_solution()
@@ -60,9 +60,10 @@ if __name__ == "__main__":
         plt.plot(all_points, 'o-', markersize=3)
         plt.ylabel("Best Solution's Points")
         plt.show()
-    """
+
 
     # Tabu Search
+    """
     tabu_search = TabuSeach(simulation)
     sol = Solution(simulation)
     sol.gen_greedy_solution()
@@ -77,4 +78,5 @@ if __name__ == "__main__":
     plt.plot(best_cand_points, 'o-', markersize=3)
     plt.ylabel("Points")
     plt.show()
+    """
 

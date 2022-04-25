@@ -20,15 +20,18 @@ class SimulatedAnnealing(AlgorithmInterface):
         self.runs_per_temp = 1 #iterations per temperature
         self.min_temperature = None
 
-    def execute(self, min_temperature, cooling_type, neighbour_func, random_sol=None):
+    def execute(self, min_temperature, cooling_type, neighbour_func, init_solution=None):
+
+
         self.min_temperature = min_temperature
         self.cooling_setup(cooling_type)
 
         all_points = []
-        if random_sol == None:
+        if init_solution == None:
             self.best_solution.gen_random_solution(10)
         else:
-            self.best_solution = random_sol
+            self.best_solution = init_solution
+
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
         all_points.append(self.best_points)
@@ -65,6 +68,12 @@ class SimulatedAnnealing(AlgorithmInterface):
 
 
     def cooling_setup(self, cooling_type):
+        """
+        Defines the cooling method used
+        -----------
+        cooling_type : integer between [1,4] that defines the cooling type
+        """
+
         if cooling_type == self.EXP_COOLING:
             self.cooling = self.exponential_cooling
         elif cooling_type == self.LOG_COOLING:

@@ -48,6 +48,11 @@ class TabuSeach(AlgorithmInterface):
 
 
     def best_admissable_sol(self, nbh):
+        """
+        Function that returns the best admissable solution and its points out of given list of neighbour solutions
+        -----------
+        nhb : list of neighbour solution
+        """
         best_sol = None
         best_points = 0
         for sol in nbh:
@@ -65,6 +70,11 @@ class TabuSeach(AlgorithmInterface):
         return best_sol, best_points
 
     def in_tabulist(self, solution):
+        """
+        Checks if a solution is in the tabu_list
+        -----------
+        solution : solution to be checked
+        """
         for tabu_sol in self.tabu_list:
             if solution.state == tabu_sol.state:
                 return True
@@ -72,11 +82,22 @@ class TabuSeach(AlgorithmInterface):
         return False
 
     def update_tabulist(self, solution):
+        """
+        Updates the tabu_list
+        --------------
+        solution : solution to be added to the tabu_list
+        """
         self.tabu_list.append(solution)
         if len(self.tabu_list) > self.max_tabusize:
             self.tabu_list.popleft()
 
-    def aspiration(self, sol, new_points):
+    def aspiration(self, sol, sol_points):
+        """
+        Function that checks if a solution passes the aspiration criterea
+        -----
+        sol : solution to be checked
+        sol_points : sol's points
+        """
         return self.no_aspiration()
 
     def no_aspiration(self):

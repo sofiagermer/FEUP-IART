@@ -1,7 +1,9 @@
 class Car:
     def __init__(self, streets):
         """
-        :param streets: path that the car will take
+        Initiates the car object
+        ------------
+        streets: path that the car will take
         """
         self.streets = streets
         self.current_street_index = 0
@@ -9,12 +11,18 @@ class Car:
         self.finished_path = False
 
     def reset_state(self):
+        """
+        Resets the car, putting it on its starting position
+        """
         self.current_street_index = 0
         self.time_to_intersection = 0
         self.streets[self.current_street_index].car_list.append(self)
         self.finished_path = False
 
     def move_green_light(self):
+        """
+        Moves the car according to a green light
+        """
         if self.time_to_intersection == 0:
             on_front = self.streets[self.current_street_index].car_list[0]
             car_inside_intersection = self.streets[self.current_street_index].end_intersection.new_car_in_intersection
@@ -31,7 +39,11 @@ class Car:
 
     
     def move(self):
-
+        """
+        Moves the car
+        ---------
+        Returns True if the car finishes its path with this exact move, otherwise False
+        """
         if self.finished_path is True:
             return False
 
@@ -60,9 +72,15 @@ class Car:
 
 
     def last_street(self):
+        """
+        Checks if the car in the last street of its path
+        """
         return self.current_street_index == (len(self.streets)-1)
 
     def reached_end_path(self):
+        """
+        Checks if the car has reached its destination
+        """
         if self.last_street() and self.time_to_intersection == 0:
             self.streets[self.current_street_index].car_list.popleft()
             return True
