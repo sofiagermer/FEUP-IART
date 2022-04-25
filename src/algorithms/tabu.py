@@ -52,7 +52,7 @@ class TabuSeach(AlgorithmInterface):
         for sol in nbh:
             new_points = self.simulation.run(sol)
             if new_points > best_points:
-                if (sol not in self.tabu_list) and (new_points > best_points): #errado, não se pode checkar se sol está na tabu_list desta forma
+                if not(self.in_tabulist(sol)) and (new_points > best_points): #errado, não se pode checkar se sol está na tabu_list desta forma
                     best_sol = sol
                     best_points = new_points
 
@@ -62,6 +62,13 @@ class TabuSeach(AlgorithmInterface):
                     best_points = new_points
 
         return best_sol, best_points
+
+    def in_tabulist(self, solution):
+        for tabu_sol in self.tabu_list:
+            if solution.state == tabu_sol.state:
+                return True
+
+        return False
 
     def update_tabulist(self, solution):
         self.tabu_list.append(solution)
