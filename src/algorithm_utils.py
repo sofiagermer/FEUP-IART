@@ -38,7 +38,7 @@ def change_semaphore_duration(solution, intersection, max_light_variation):
     street = randint(0, len(solution.state[intersection]) - 1)
     increment = randint(1, max_light_variation)
 
-    print("Lights: ", intersection, street, increment)
+    # print("Lights: ", intersection, street, increment)
 
     if randint(0, 1) == 0:
         solution.state[intersection][street][1] += increment
@@ -57,7 +57,7 @@ def switch_semaphore_order(solution, intersection):
     while s1 == s2:
         s2 = randint(0, len(solution.state[intersection]) - 1)
 
-    print("Order: ", intersection, s1, s2)
+    # print("Order: ", intersection, s1, s2)
 
     solution.state[intersection][s1], solution.state[intersection][s2] = solution.state[intersection][s2], \
                                                                          solution.state[intersection][s1]

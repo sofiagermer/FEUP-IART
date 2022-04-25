@@ -1,5 +1,4 @@
 import unittest
-import os
 
 from car import Car
 from intersection import Intersection
@@ -15,7 +14,7 @@ from algorithm_utils import gen_neighbour_lightOrOrder_func
 import matplotlib.pyplot as plt
 import time
 
-
+from visualization import Visualization
 
 class Program:
     """
@@ -27,33 +26,18 @@ class Program:
     def run(self):
         pass
 
-
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/e.txt")
-    #file_parsing.parse_output("data/output/e.txt", intersections, streets)
-
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
     # HILL CLIMBING SIMULATION
     hill_climbing = HillClimbing(simulation)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     hill_climbing.execute(neighbour_func)
-    bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
+    bestSol, bestPoints = hill_climbing.get_solution()
 
-    # SIMULATED ANNEALING
-    simulated_annealing = SimulatedAnnealing(simulation)
-    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-    start = time.time()
-    all_points = simulated_annealing.execute(neighbour_func)
-    end = time.time()
-    bestSol, bestPoints = simulated_annealing.get_solution()
+    visualization = Visualization(simulation.duration, simulation.points_per_car, simulation.intersections, simulation.streets, simulation.cars)
 
-    print("Elapsed time: ", end-start)
-    print("Best points obtained: ", bestPoints)
-    plt.plot(all_points, 'o-', markersize=3)
-    plt.ylabel('Best Points')
-    plt.show()
-
-
-
+    simulation.run_visualization(visualization, bestSol)
+ 
 
