@@ -44,7 +44,7 @@ if __name__ == "__main__":
     """
 
     #Iterative Local Seach
-
+    """
     iter = IteratedLocalSearch(simulation)
     sol = Solution(simulation)
     sol.gen_greedy_solution()
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     end = time.time()
     print(f'points: {best_points}')
     print(f'time: {end - start}')
-
+    """
     '''
     start_population = []
     for i in range(100):
@@ -68,19 +68,41 @@ if __name__ == "__main__":
     '''
 
     #HILL CLIMBING SIMULATION
-    """
+
     
-    hill_climbing = HillClimbing(simulation)
-    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-    hill_climbing.execute(neighbour_func)
-    bestSol, bestPoints = hill_climbing.get_solution()
-
-    visualization = Visualization(simulation.intersections, simulation.streets, simulation.cars)
-
-    simulation.run_visualization(visualization, bestSol)
-
     #hill_climbing = HillClimbing(simulation)
     #neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     #hill_climbing.execute(neighbour_func)
-    #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
-    """
+    #bestSol, bestPoints = hill_climbing.get_solution()
+
+    #visualization = Visualization(simulation.intersections, simulation.streets, simulation.cars)
+
+    #simulation.run_visualization(visualization, bestSol)
+
+    sol = Solution(simulation)
+    sol.gen_random_solution(3)
+
+    hill_climbing = HillClimbing(simulation)
+    neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+    start = time.time()
+    hill_climbing.execute(neighbour_func, num_iterations=250, solution=sol)
+    end = time.time()
+    bestSol, best_points = hill_climbing.get_solution()
+    print(f'points: {best_points}')
+    print(f'time: {end - start}')
+
+    start = time.time()
+    hill_climbing.execute(neighbour_func, num_iterations=500, solution=sol)
+    end = time.time()
+    bestSol, best_points = hill_climbing.get_solution()
+    print(f'points: {best_points}')
+    print(f'time: {end - start}')
+
+    start = time.time()
+    hill_climbing.execute(neighbour_func, num_iterations=750, solution=sol)
+    end = time.time()
+    bestSol, best_points = hill_climbing.get_solution()
+    print(f'points: {best_points}')
+    print(f'time: {end - start}')
+
+

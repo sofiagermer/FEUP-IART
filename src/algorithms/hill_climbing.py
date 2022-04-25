@@ -10,7 +10,7 @@ class HillClimbing(AlgorithmInterface):
         self.best_solution = Solution(simulation)
         self.best_points = 0
 
-    def execute(self, neighbour_func, solution=None):
+    def execute(self, neighbour_func, num_iterations=1000, solution=None):
         all_points = []
 
         if solution is None:
@@ -22,7 +22,7 @@ class HillClimbing(AlgorithmInterface):
         print("points" + str(self.best_points))
         no_improvement = 0
 
-        for _ in range(1000):
+        for _ in range(num_iterations):
 
             if no_improvement == 50:
                 break
@@ -35,7 +35,7 @@ class HillClimbing(AlgorithmInterface):
                 self.best_solution = new_solution
             
             else:
-                no_improvement += 1
+                no_improvement += 0 #can be changed
 
             all_points.append(self.best_points)
 

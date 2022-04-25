@@ -5,7 +5,7 @@ from .solution import Solution
 from .hill_climbing import HillClimbing
 
 class IteratedLocalSearch(AlgorithmInterface):
-    def __init__(self, simulation, max_iterations = 8):
+    def __init__(self, simulation, max_iterations = 10):
         self.simulation = simulation
         self.best_solution = Solution(simulation)
         self.best_points = 0
