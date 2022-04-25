@@ -2,8 +2,11 @@ from email import message
 import os
 from select import select
 from algorithms.algorithm_utils import gen_neighbour_lightOrOrder_func
+from algorithms.chromosome import Chromosome
+from algorithms.genetic import Genetic
 
 from algorithms.hill_climbing import HillClimbing
+from algorithms.iterated_local_search import IteratedLocalSearch
 from algorithms.simulation import Simulation
 from visualization import Visualization
 import file_parsing
@@ -66,42 +69,77 @@ class Menu:
         selected_option = self.select_option(1,4)
         
         if selected_option == 1:
-            self.algorithm_menu(file,False)
+            self.run_algorithm_menu(file)
         elif selected_option == 2:
-            self.algorithm_menu(file,True)
+            self.show_plot_menu(file)
         elif selected_option == 3:
             self.main_menu()
         elif selected_option == 4:
             exit()
-
-    def algorithm_menu(self,file,plot=False):
-        algortihms = {"1" : "Hill Climbing", "2" : "Simulated Annealing" , "3" : "Genetic" , "4" : "Iterative Search", "5" : "Tabu Search", "6" : "Go Back to Main Menu", "7" : "Exit"}
+    
+    def run_algorithm_menu(self,file):
+        algortihms = {"1": "Greeedy", "2" : "Hill Climbing", "3" : "Simulated Annealing" , "4" : "Genetic" , "5" : "Iterative Search", "6" : "Tabu Search", "7" : "Go Back to Main Menu", "8" : "Exit"}
         title = "Algorithm Menu"
         message =  "Selec an algorithm"
         self.print_menu(algortihms,title, message)
-        selected_algorithm = self.select_option(1,7)
+        selected_algorithm = self.select_option(1,8)
 
         if selected_algorithm == 1:
-            self.run_hill_climbing(file,plot)
+            self.run_greedy(file)
             self.run_after_algorithm()
-        elif selected_algorithm == 2:
-            self.run_simulated_annealing(file,plot)
+        if selected_algorithm == 2:
+            self.run_hill_climbing(file)
             self.run_after_algorithm()
         elif selected_algorithm == 3:
-            self.run_genetic(file,plot)
+            self.run_simulated_annealing(file)
             self.run_after_algorithm()
         elif selected_algorithm == 4:
-            self.run_iterative_search(file,plot)
+            self.run_genetic(file)
             self.run_after_algorithm()
         elif selected_algorithm == 5:
-            self.run_tabu_search(file,plot)
+            self.run_iterative_search(file)
             self.run_after_algorithm()
         elif selected_algorithm == 6:
-            self.main_menu()
+            self.run_tabu_search(file)
+            self.run_after_algorithm()
         elif selected_algorithm == 7:
+            self.main_menu()
+        elif selected_algorithm == 8:
             exit()
 
-    def run_hill_climbing(self,file,plot):
+    def show_plot_menu(self,file):
+        algortihms = {"1" : "Hill Climbing", "2" : "Simulated Annealing" , "3" : "Tabu Search", "4" : "Go Back to Main Menu", "5" : "Exit"}
+        title = "Plot Menu"
+        message =  "Selec an algorithm"
+        self.print_menu(algortihms,title, message)
+        selected_algorithm = self.select_option(1,5)
+
+        if selected_algorithm == 1:
+            self.run_hill_climbing(file,True)
+            self.run_after_algorithm()
+        elif selected_algorithm == 2:
+            self.run_simulated_annealing(file,True)
+            self.run_after_algorithm()
+        elif selected_algorithm == 3:
+            self.run_tabu_search(file,True)
+            self.run_after_algorithm()
+        elif selected_algorithm == 4:
+            self.main_menu()
+        elif selected_algorithm == 5:
+            exit()
+
+    def run_greedy(self,file):
+        sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
+        simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
+
+        sol = Solution(simulation)
+        start = time.time()
+        sol.gen_greedy_solution()
+        end = time.time()
+        print(f'Points: {simulation.run(sol)}')
+        print(f'time: {end-start}')
+
+    def run_hill_climbing(self,file,plot=False):
         sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
         simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
@@ -118,7 +156,7 @@ class Menu:
             print("Points: ", bestPoints)
 
     
-    def run_simulated_annealing(self,file,plot):
+    def run_simulated_annealing(self,file,plot=False):
         sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
         simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
@@ -145,15 +183,36 @@ class Menu:
             print("Points: ", bestPoints)
 
     
-    def run_genetic(self, file,plot):
-        print("genetico")
-        pass
+    def run_genetic(self, file):
+        sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
+        simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
+
+        start_population = []
+        for i in range(100):
+            solution = gen_neighbour_lightOrOrder_func(50, simulation.duration)
+            p = simulation.evaluate_solution(None, solution)
+            start_population.append(Chromosome(solution, p))
+        genetic_utils = Genetic(simulation, max_improveless_iterations=None, max_iterations=50, population_size=100, elitism_num=20,mutation_probability=0.4, mutation_ops_percentage=0.1)
+        genetic_utils.execute(start_population)
+        simulation.evaluate_solution(None, genetic_utils.get_solution())
+
     
-    def run_iterative_search(self,file,plot):
-        print("iterative search")
-        pass
-    
-    def run_tabu_search(self,file,plot):
+    def run_iterative_search(self,file):
+        sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
+        simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
+
+        iter = IteratedLocalSearch(simulation)
+        sol = Solution(simulation)
+        sol.gen_greedy_solution()
+        points = simulation.run(sol)
+
+        start = time.time()
+        solution, best_points = iter.execute( gen_neighbour_lightOrOrder_func(50, simulation.duration), start_solution=sol, start_points=points)
+        end = time.time()
+        print(f'points: {best_points}')
+        print(f'time: {end - start}')
+
+    def run_tabu_search(self,file,plot=False):
         sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse(file)
         simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 

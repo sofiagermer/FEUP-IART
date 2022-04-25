@@ -19,7 +19,6 @@ class HillClimbing(AlgorithmInterface):
             self.best_solution = solution
         self.best_points = self.simulation.run(solution=self.best_solution)
 
-        print("points" + str(self.best_points))
         no_improvement = 0
 
         for _ in range(num_iterations):
