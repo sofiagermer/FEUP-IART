@@ -4,12 +4,8 @@ import pygame
 import os
 import file_parsing
 
-#SOLUTION VISUALIZATION
-WIDTH, HEIGHT = 1100 , 750
-WIN = pygame.display.set_mode((WIDTH,HEIGHT))
-pygame.display.set_caption("Solution Visualization - Traffic Signaling")
+# background
 back_ground = pygame.image.load(os.path.join('images', '0.png'))
-FPS = 60
 
 # cars
 CAR_WIDTH = 70
@@ -186,32 +182,32 @@ class Visualization:
 
         return traffic_ligths
 
-    def draw_time(self,time_elapsed):
+    def draw_time(self,time_elapsed,WIN):
         WIN.blit(CLOCK,(20,20))
 
         font1 = pygame.font.SysFont('chalkduster.ttf', 30)
         img = font1.render(str(time_elapsed), True, GREY)
         WIN.blit(img, (80, 35))
 
-    def draw_cars_arrived(self, number_cars_arrived):
+    def draw_cars_arrived(self, number_cars_arrived,WIN):
         WIN.blit(CAR_AMESTERDAM,(150,15))
         font1 = pygame.font.SysFont('chalkduster.ttf', 30)
         img = font1.render(str(number_cars_arrived), True, GREY)
         WIN.blit(img, (230, 35))
     
-    def draw_points(self,total_points):
+    def draw_points(self,total_points,WIN):
         WIN.blit(POINTS,(300,20))
         font1 = pygame.font.SysFont('chalkduster.ttf', 30)
         img = font1.render(str(total_points), True, GREY)
         WIN.blit(img, (360, 35))
 
-    def draw_window(self, streets, time_elapsed, number_cars_arrived, total_points):
+    def draw_window(self, WIN,streets, time_elapsed, number_cars_arrived, total_points):
         WIN.blit(back_ground, (0, 0))
         
         #top bar indormation
-        self.draw_time(time_elapsed)
-        self.draw_cars_arrived(number_cars_arrived)
-        self.draw_points(total_points)
+        self.draw_time(time_elapsed,WIN)
+        self.draw_cars_arrived(number_cars_arrived,WIN)
+        self.draw_points(total_points,WIN)
 
 
         for street in streets:
@@ -238,7 +234,7 @@ class Visualization:
 
         if current_street.name == "rue-d-amsterdam": # esquerda -> direita
             print("estou a mover o carro na rua de amesterdão")
-            self.cars_positions[car][1][0] -= step_normalbefore
+            self.cars_positions[car][1][0] -= step_normal
             
         elif current_street.name == "rue-de-rome": # esquerda -> direita
             print("aqui")

@@ -36,6 +36,7 @@ class HillClimbing(AlgorithmInterface):
 
             all_points.append(self.best_points)
 
+        return all_points
 
     def get_solution(self):
         return self.best_solution, self.best_points
