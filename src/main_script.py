@@ -28,12 +28,20 @@ class Program:
 
 
 if __name__ == "__main__":
-    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
+    sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/b.txt")
     simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
+    sol = Solution(simulation)
+    start = time.time()
+    sol.gen_greedy_solution()
+    end = time.time()
+    print(f'Points: {simulation.run(sol)}')
+
+    print(f'time: {end-start}')
 
     # HILL CLIMBING SIMULATION
-
+    """
+    
     hill_climbing = HillClimbing(simulation)
     neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     hill_climbing.execute(neighbour_func)
@@ -47,7 +55,7 @@ if __name__ == "__main__":
     #neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
     #hill_climbing.execute(neighbour_func)
     #bestSol, bestPoints = hill_climbing.get_solution(neighbour_func)
-
+    """
     # SIMULATED ANNEALING
     """
     simulated_annealing = SimulatedAnnealing(simulation)
