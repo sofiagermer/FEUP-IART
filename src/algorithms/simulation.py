@@ -117,10 +117,12 @@ class Simulation:
 
                     
         for i in range(self.duration):
-            # pygame.time.wait(1000)
+            pygame.time.wait(1000)
             # Update Each Car Position's after 1 second
-            cars_that_change_street = []
+            cars_that_change_street_before = []
+            cars_that_change_street_after = []
             cars_that_move_foward = []
+
             for car in self.cars:
                 old_street = car.streets[car.current_street_index]
                 old_time_to_intersectioion = car.time_to_intersection
@@ -140,20 +142,29 @@ class Simulation:
                 new_time_to_intersectioion = car.time_to_intersection
 
                 if(old_street != new_street):
-                    print("car changed to ", car.streets[car.current_street_index].name)
-                    cars_that_change_street.append(car)
+                    if(new_street.length == car.time_to_intersection):
+                        cars_that_change_street_after.append(car)
+
+                    else:
+                        print("car changed to ", car.streets[car.current_street_index].name)
+                        cars_that_change_street_before.append(car)
 
                 elif(old_time_to_intersectioion != new_time_to_intersectioion):
                     print("car moved foward in ", car.streets[car.current_street_index].name)
                     cars_that_move_foward.append(car)
-            
-                for _ in range (100):
-                    for car in cars_that_move_foward:
-                        visualization.update_car_position(car, car.streets[car.current_street_index])
-                        visualization.draw_window(self.streets,i, car_counter, self.points)
-                for car in cars_that_change_street:
-                    visualization.change_car_street(car)
+
+            for car in cars_that_change_street_before:
+                visualization.change_car_street(car)
+            visualization.draw_window(self.streets,i, car_counter, self.points)
+
+            for _ in range (100):
+                for car in cars_that_move_foward:
+                    visualization.update_car_position(car, car.streets[car.current_street_index])
                 visualization.draw_window(self.streets,i, car_counter, self.points)
+
+            for car in cars_that_change_street_after:
+                visualization.change_car_street(car)
+            visualization.draw_window(self.streets,i, car_counter, self.points)
 
             # Update Each Semaphore State  after 1 second
             for intersection in self.intersections:

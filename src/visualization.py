@@ -169,7 +169,7 @@ class Visualization:
     def define_traffic_lights(self):
         traffic_ligths = {}
 
-        moscow = pygame.Rect(STREET_MOSCOW_POSITION[0][0]+60, STREET_MOSCOW_POSITION[0][1]+60,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
+        moscow = pygame.Rect(STREET_MOSCOW_POSITION[1][0]-10, STREET_MOSCOW_POSITION[1][1]-10,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
         traffic_ligths["rue-de-moscou"] = [moscow, GREEN_LIGHT, RED_LIGHT]
 
         athenas = pygame.Rect(STREET_ATHENAS_POSITION[0][0]+10, STREET_ATHENAS_POSITION[0][1]+20,TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT)
@@ -238,9 +238,11 @@ class Visualization:
 
         if current_street.name == "rue-d-amsterdam": # esquerda -> direita
             print("estou a mover o carro na rua de amesterdão")
-            self.cars_positions[car][1][0] -= step_normal
+            self.cars_positions[car][1][0] -= step_normalbefore
             
         elif current_street.name == "rue-de-rome": # esquerda -> direita
+            print("aqui")
+            print("step normal: " , step_normal)
             self.cars_positions[car][1][0] -= step_normal
 
         elif current_street.name == "rue-d-athenes": # baixo -> cima
