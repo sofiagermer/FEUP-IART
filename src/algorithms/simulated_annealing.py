@@ -31,7 +31,7 @@ class SimulatedAnnealing(AlgorithmInterface):
             self.best_solution = random_sol
         self.simulation.import_solution(self.best_solution)
         self.best_points = self.simulation.run(solution=self.best_solution)
-
+        all_points.append(self.best_points)
 
         counter = 0
         while counter < 500:
