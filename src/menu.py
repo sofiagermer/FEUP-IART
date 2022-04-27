@@ -252,10 +252,12 @@ class Menu:
         sim_duration, points_per_car, intersections, streets, cars = file_parsing.parse("data/input/a.txt")
         simulation = Simulation(sim_duration, points_per_car, intersections, streets, cars)
 
-        hill_climbing = HillClimbing(simulation)
-        neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
-        hill_climbing.execute(neighbour_func)
-        bestSol, bestPoints = hill_climbing.get_solution()
+        bestPoints = 0
+        while(bestPoints < 2000):
+            hill_climbing = HillClimbing(simulation)
+            neighbour_func = gen_neighbour_lightOrOrder_func(50, 3)
+            hill_climbing.execute(neighbour_func)
+            bestSol, bestPoints = hill_climbing.get_solution()
 
         visualization = Visualization(simulation.intersections, simulation.streets, simulation.cars)
 

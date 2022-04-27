@@ -175,7 +175,7 @@ class Simulation:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-                visualization.draw_window(self.streets,self.duration, car_counter, self.points)
+                visualization.draw_window(WIN,self.streets,i, car_counter, self.points)
         pygame.quit()
 
         return self.points
