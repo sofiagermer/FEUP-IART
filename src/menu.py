@@ -63,8 +63,8 @@ class Menu:
 
     def run_or_graph(self,file):
         options = {"1" : "Run Algorithm", "2" : "See Algorithm's Quality Plot" , "3" : "Go Back to Main Menu", "4" : "Exit"}
-        title = "Algorithm Menu"
-        message =  "Selec which algorithm you want to run"
+        title = "Run or Show Plot"
+        message =  "Select an option"
         self.print_menu(options,title, message)
         selected_option = self.select_option(1,4)
         
@@ -80,7 +80,7 @@ class Menu:
     def run_algorithm_menu(self,file):
         algortihms = {"1": "Greeedy", "2" : "Hill Climbing", "3" : "Simulated Annealing" , "4" : "Genetic" , "5" : "Iterative Search", "6" : "Tabu Search", "7" : "Go Back to Main Menu", "8" : "Exit"}
         title = "Algorithm Menu"
-        message =  "Selec an algorithm"
+        message =  "Select an algorithm"
         self.print_menu(algortihms,title, message)
         selected_algorithm = self.select_option(1,8)
 
