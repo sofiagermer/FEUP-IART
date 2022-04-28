@@ -1,6 +1,6 @@
 # Traffic Signalling Optimization
 
-# G64 3A
+Solving the Google Hash code 2021 Traffic Signaling problem utilizing Optimization algorithms and heuristics.
 
 ## Requirements
 
