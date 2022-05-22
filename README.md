@@ -77,6 +77,6 @@ After running the main_script.py the main menu appears
 
 ## Group Members
 
-Sofia Germer, up201907461
-Pedro Jesus, up201907523
-Sérgio Estêvão, up201905680
+- Sofia Germer, up201907461
+- Pedro Jesus, up201907523
+- Sérgio Estêvão, up201905680
